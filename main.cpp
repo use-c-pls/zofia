@@ -9,6 +9,5 @@ int main(int argc, char** argv){
     ds << "abcdefghijklmnopqrstuvwxyz";
     ds.close();
     std::cout << Poco::DigestEngine::digestToHex(md5.digest()) << std::endl;
-    std::cout << "Hello World" << std::endl;
     return 0;
 }
