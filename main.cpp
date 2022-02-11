@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "core/hello.cpp"
+#include "core/core.hpp"
 
 int main() {
     // create the window

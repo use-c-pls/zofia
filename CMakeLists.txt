@@ -27,7 +27,7 @@ list(APPEND GAME_SOURCE
         core/hello.cpp
         )
 list(APPEND GAME_HEADER
-        core/hello.h
+        core/core.hpp
         )
 #
 set(all_code_files
