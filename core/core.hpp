@@ -1,2 +1,3 @@
 /* Author @daoluke */
-#include "hello.cpp"
+#include "Greeting.cpp"
+#include "Game.cpp"

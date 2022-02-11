@@ -3,20 +3,22 @@ project(zofia)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
-# Specific compiler options - set C++11 flag for g++ and clang
-if (CMAKE_COMPILER_IS_GNUCXX)
+#Specific compiler options - set C++11 flag for g++ and clang
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
     # Mac OS X: clang uses libc++ standard library
     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     endif ()
 endif ()
+message(STATUS "Compiler ${CMAKE_CXX_COMPILER_ID} compile with Flags: ${CMAKE_CXX_FLAGS}")
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 #####################################################################################################################################
 #### Internal api #####
@@ -24,7 +26,9 @@ set(GAME_SOURCE)
 set(GAME_HEADER)
 
 list(APPEND GAME_SOURCE
-        core/hello.cpp
+        core/Size.cpp
+        core/Greeting.cpp
+        core/Game.cpp
         )
 list(APPEND GAME_HEADER
         core/core.hpp
