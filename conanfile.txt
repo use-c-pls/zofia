@@ -1,4 +1,14 @@
 [requires]
 poco/1.9.4
+sfml/2.5.1
+
+[options]
+sfml:window=True
+sfml:graphics=True
+sfml:shared=True
+
 [generators]
 cmake
+
+[imports]
+lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my local "bin" folder
