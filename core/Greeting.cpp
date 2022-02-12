@@ -1,4 +1,6 @@
 /* Author @daoluke */
+#ifndef ZOFIA_GREETING_CPP__
+#define ZOFIA_GREETING_CPP__
 #include <iostream>
 
 namespace zofia {
@@ -9,3 +11,5 @@ namespace zofia {
           }
     };
 }
+
+#endif

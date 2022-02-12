@@ -1,4 +1,6 @@
 /* Author @daoluke */
+#ifndef ZOFIA_SIZE_CPP__
+#define ZOFIA_SIZE_CPP__
 
 namespace zofia {
     class Size {
@@ -15,3 +17,4 @@ namespace zofia {
           }
     };
 }
+#endif
