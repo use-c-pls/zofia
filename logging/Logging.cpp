@@ -2,17 +2,39 @@
 #ifndef __ZOFIA_LOGGING_CPP
 #define __ZOFIA_LOGGING_CPP
 
-#include <set>
 #include <spdlog/spdlog.h>
 
 #define ZOFIA zofia::
 
 namespace zofia {
     class Logging {
-        protected:
-          Logging();
         public:
+          Logging();
           void changeLogLevel(std::string logLevel);
+          template<typename T>
+          void debug(const T &msg) {
+              spdlog::debug(msg);
+          }
+
+          template<typename T>
+          void info(const T &msg) {
+              spdlog::info(msg);
+          }
+
+          template<typename T>
+          void warning(const T &msg) {
+              spdlog::warn(msg);
+          }
+
+          template<typename T>
+          void error(const T &msg) {
+              spdlog::error(msg);
+          }
+
+          template<typename T>
+          void critical(const T &msg) {
+              spdlog::critical(msg);
+          }
         private:
           void _();
     };
@@ -22,14 +44,14 @@ ZOFIA Logging::Logging() {
     _();
 }
 
-void toLowerCase(std::string s);
-
 void ZOFIA Logging::changeLogLevel(std::string logLevel) {
     if (logLevel.empty()) {
         logLevel = "info";
     }
     // to lower case
-    //std::transform(logLevel.begin(), logLevel.end(), logLevel.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::for_each(logLevel.begin(), logLevel.end(), [](char & c){
+        c = ::tolower(c);
+    });
     if (logLevel == "debug") {
         spdlog::set_level(spdlog::level::debug);
     } else if (logLevel == "info") {

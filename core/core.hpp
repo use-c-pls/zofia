@@ -7,5 +7,6 @@
 
 #include "Config.cpp"
 #include "Size.cpp"
+#include "Constant.cpp"
 
 #endif

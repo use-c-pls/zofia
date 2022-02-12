@@ -30,12 +30,15 @@ list(APPEND GAME_SOURCE
         core/Greeting.cpp
         core/Game.cpp
         core/Config.cpp
+        core/Constant.cpp
+
         logging/Logging.cpp
-        logging/StoutLogging.cpp
+
         menu/MenuScene.cpp
         )
 list(APPEND GAME_HEADER
         core/core.hpp
+
         logging/logging.hpp
         )
 #

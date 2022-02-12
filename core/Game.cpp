@@ -3,15 +3,21 @@
 #define ZOFIA_GAME_CPP__
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "Size.cpp"
+#include "Config.cpp"
+#include "Constant.cpp"
+
+#include "../logging/logging.hpp"
+
 #define ZOFIA zofia::
 
 namespace zofia {
     class Game {
         private:
           const std::string TITLE = "Zofia";
+
+          zofia::Logging LOG;
 
           sf::RenderWindow m_window;
           sf::Event m_sfEvent{};
@@ -21,12 +27,17 @@ namespace zofia {
           void updateSfEvent();
 
         public:
-          Game() : Game(Size(600, 800)) {}
+          Game() : Game(Size(zofia::DEFAULT_GAME_WIDTH, zofia::DEFAULT_GAME_HEIGHT)) {}
 
           explicit Game(Size size) : m_size(size.getWidth(), size.getHeight()),
                                      m_window(sf::VideoMode(size.getWidth(), size.getHeight()), TITLE) {
-              std::cout << "Running game " << TITLE << std::endl;
-              std::cout << "Size: {w: " << size.getWidth() << ", h: " << size.getHeight() << "}" << std::endl;
+              this->LOG.info("Running game " + TITLE);
+          }
+
+          explicit Game(Config *config) : m_size(config->getWidth(), config->getHeight()),
+                                          m_window(sf::VideoMode(config->getWidth(), config->getHeight()), TITLE) {
+              std::cout << "Address config 2 #" << config << std::endl;
+              this->LOG.info("Using config to running game " + TITLE);
           }
 
           virtual ~Game();
@@ -46,7 +57,7 @@ namespace zofia {
 }
 
 ZOFIA Game::~Game() {
-    std::cout << "Cleaning up...";
+    this->LOG.info("Cleaning up GameEngine ...");
 }
 
 void ZOFIA Game::updateSfEvent() {

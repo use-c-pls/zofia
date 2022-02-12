@@ -1,133 +1,85 @@
 //
 // Created by kienle on 12/02/2022.
 //
+#ifndef ZOFIA_CONFIG_CPP__
+#define ZOFIA_CONFIG_CPP__
 #include <iostream>
 #include <fstream>
 #include <Poco/JSON/Parser.h>
 #include <Poco/Dynamic/Var.h>
 
+#include "Constant.cpp"
 #define ZOFIA zofia::
 
 namespace zofia {
     class Config {
         private:
-            //default option
-            std::string m_path;
-            int m_width = 0;
-            int m_height = 0;
-            int m_volume = 0;
-            std::string m_language = "en";
-            //function
-            std::string read_config(std::string path);
+          const std::string PATH = "resources/configs/config.json";
+          int m_width = 0;
+          int m_height = 0;
+          int m_volume = 0;
+          std::string m_language = "en";
 
-            //Key binding
-            std::string m_keyUp = "w";
-            std::string m_keyDown = "s";
-            std::string m_keyLeft = "a";
-            std::string m_keyRight = "d";
-            std::string m_keyFire = "f";
+          std::map<std::string, std::string> m_keyBindings;
 
+          void init();
         public:
-            explicit Config() : m_path("resources/configs/config.json"){
-                std::string jsonStr = read_config(m_path);
-                Poco::JSON::Parser parser;
+          explicit Config() {
+              this->init();
+          };
 
-                Poco::Dynamic::Var jsonVar = parser.parse(jsonStr);
-
-                Poco::JSON::Object::Ptr rootJson = jsonVar.extract<Poco::JSON::Object::Ptr>();
-
-                this->m_width = rootJson->getValue<int>("window_width");
-                this->m_height = rootJson->getValue<int>("window_height");
-                this->m_language = rootJson->getValue<std::string>("language");
-                this->m_volume = rootJson->getValue<int>("volume");
-
-                //get key binding object from rootJson
-                Poco::JSON::Object::Ptr keyBindingObj = rootJson->getObject("key_binding");
-
-                this->m_keyUp = keyBindingObj->getValue<std::string>("up");
-                this->m_keyDown = keyBindingObj->getValue<std::string>("down");
-                this->m_keyLeft = keyBindingObj->getValue<std::string>("left");
-                this->m_keyRight = keyBindingObj->getValue<std::string>("right");
-                this->m_keyFire = keyBindingObj->getValue<std::string>("fire");
-
-
-                if(this->m_width <= 0){
-                    this->m_width = 1000;
-                }
-
-                if(this->m_height <= 0){
-                    this->m_height = 1200;
-                }
-
-                if(this->m_language.empty()){
-                    this->m_language = "en";
-                }
-
-                if(this->m_volume <= 0){
-                    this->m_volume = 50;
-                }
-
-                if(this->m_keyUp.empty()){
-                    this->m_keyUp = "w";
-                }
-
-                if(this->m_keyDown.empty()){
-                    this->m_keyDown = "s";
-                }
-
-                if(this->m_keyRight.empty()){
-                    this->m_keyRight = "d";
-                }
-
-                if(this->m_keyLeft.empty()){
-                    this->m_keyLeft = "a";
-                }
-
-                if(this->m_keyFire.empty()){
-                    this->m_keyFire = "f";
-                }
-
-
-            };
-
-            virtual ~Config();
-
-            int getHeight();
-            int getWidth();
-            int getVolume();
-            std::string getLanguage();
-            std::string getKeyUp();
-            std::string getKeyDown();
-            std::string getKeyLeft();
-            std::string getKeyRight();
+          int getHeight();
+          int getWidth();
+          int getVolume();
+          std::string getLanguage();
+          std::string getKeyBinding(const std::string &key);
     };
 }
 
-std::string ZOFIA Config::read_config(std::string path) {
-    std::ifstream ifs(path,std::ifstream::binary);
+std::string readConfigAsString(const std::string &path) {
+    std::ifstream ifs(path, std::ifstream::binary);
+    std::filebuf *fileBuf = ifs.rdbuf();
 
-    std::filebuf* fileBuf = ifs.rdbuf();
+    std::size_t size = fileBuf->pubseekoff(0, ifs.end, std::ifstream::in);
+    fileBuf->pubseekpos(0, std::ifstream::in);
+    char *buffer = new char[size];
+    fileBuf->sgetn(buffer, size);
 
-    std::size_t size = fileBuf->pubseekoff(0,ifs.end,ifs.in);
-    fileBuf->pubseekpos(0,ifs.in);
-
-    char* buffer = new char[size];
-
-    fileBuf->sgetn(buffer,size);
+    std::string str(buffer);
 
     ifs.close();
-
-    std::string str (buffer);
-
     delete[] buffer;
 
     return str;
 }
 
-ZOFIA Config::~Config() {
-    std::cout << "Cleaning up...";
-}
+Poco::JSON::Object::Ptr parse(const std::string &jsonStr);
+Poco::JSON::Object::Ptr getFromJsonObject(Poco::JSON::Object::Ptr root, const std::string &key);
+int get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, int defaultValue);
+std::string get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, std::string defaultValue);
 
+void zofia::Config::init() {
+    std::string jsonStr = readConfigAsString(this->PATH);
+    Poco::JSON::Object::Ptr rootJson = parse(jsonStr);
+
+    this->m_width = get(rootJson, "window_width", zofia::DEFAULT_GAME_WIDTH);
+    this->m_height = get(rootJson, "window_height", zofia::DEFAULT_GAME_HEIGHT);
+    this->m_language = get(rootJson, "language", "en");
+    this->m_volume = get(rootJson, "volume", 1800);
+
+    Poco::JSON::Object::Ptr keyBindingMap = getFromJsonObject(rootJson, "key_binding");
+    std::string up = get(keyBindingMap, "up", zofia::DEFAULT_KEY_BINDING["up"]);
+    std::string down = get(keyBindingMap, "down", zofia::DEFAULT_KEY_BINDING["down"]);
+    std::string left = get(keyBindingMap, "left", zofia::DEFAULT_KEY_BINDING["left"]);
+    std::string right = get(keyBindingMap, "right", zofia::DEFAULT_KEY_BINDING["right"]);
+    std::string fire = get(keyBindingMap, "fire", zofia::DEFAULT_KEY_BINDING["fire"]);
+
+    this->m_keyBindings.insert(std::pair<std::string, std::string>("up", up));
+    this->m_keyBindings.insert(std::pair<std::string, std::string>("down", down));
+    this->m_keyBindings.insert(std::pair<std::string, std::string>("left", left));
+    this->m_keyBindings.insert(std::pair<std::string, std::string>("right", right));
+    this->m_keyBindings.insert(std::pair<std::string, std::string>("fire", fire));
+}
 
 int ZOFIA Config::getHeight() {
     return this->m_height;
@@ -141,18 +93,39 @@ int ZOFIA Config::getVolume() {
     return this->m_volume;
 }
 
-std::string ZOFIA Config::getKeyUp() {
-    return this->m_keyUp;
+std::string ZOFIA Config::getLanguage() {
+    return this->m_language;
 }
 
-std::string ZOFIA Config::getKeyDown() {
-    return this->m_keyDown;
+std::string ZOFIA Config::getKeyBinding(const std::string &key) {
+    return this->m_keyBindings[key];
+}
+//----------------
+
+Poco::JSON::Object::Ptr parse(const std::string &jsonStr) {
+    Poco::JSON::Parser parser;
+
+    Poco::Dynamic::Var jsonVar = parser.parse(jsonStr);
+
+    return jsonVar.extract<Poco::JSON::Object::Ptr>();
 }
 
-std::string ZOFIA Config::getKeyLeft() {
-    return this->m_keyLeft;
+Poco::JSON::Object::Ptr getFromJsonObject(Poco::JSON::Object::Ptr root, const std::string &key) {
+    return root->getObject(key);
 }
 
-std::string ZOFIA Config::getKeyRight() {
-    return this->m_keyRight;
+int get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, int defaultValue) {
+    if (jsonObject->has(key)) {
+        return jsonObject->getValue<int>(key);
+    }
+    return defaultValue;
 }
+
+std::string get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, std::string defaultValue) {
+    if (jsonObject->has(key)) {
+        return jsonObject->getValue<std::string>(key);
+    }
+    return defaultValue;
+}
+
+#endif

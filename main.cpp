@@ -1,20 +1,16 @@
 #include "core/core.hpp"
 #include "menu/MenuScene.cpp"
-#include "logging/StoutLogging.cpp"
-
-const int WIDTH = 1200;
-const int HEIGHT = 1800;
 
 int main() {
     zofia::Config config;
-    std::cout << config.getKeyUp() << std::endl;
-    zofia::Greeting::greeting("Luke");
-    zofia::Game game(zofia::Size(WIDTH, HEIGHT));
-    zofia::MenuScene menuScene(&game);
+    std::cout << config.getKeyBinding("up");
 
-    zofia::StoutLogging log;
-    log.changeLogLevel("debug");
-    log.debug("OK");
+    zofia::Greeting::greeting("Luke");
+
+    std::cout << "Address Config 1 #" << &config << std::endl;
+    zofia::Game game(&config);
+    zofia::MenuScene menuScene(&game);
+    std::cout << "Address Game 2 #" << &game << std::endl;
 
     game.run();
 

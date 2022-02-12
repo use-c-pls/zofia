@@ -7,10 +7,11 @@ namespace zofia {
     class MenuScene {
         private:
           Size m_size;
-          zofia::Game *game;
+          zofia::Game *m_game;
         public:
           explicit MenuScene(zofia::Game *game) : m_size(game->getSize().getWidth(), game->getSize().getHeight()) {
-              this->game = game;
+              this->m_game = game;
+              std::cout << "Address Game 2 #" << this->m_game << std::endl;
           }
     };
 }
