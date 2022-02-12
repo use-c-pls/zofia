@@ -1,4 +1,7 @@
 /* Author @daoluke */
+#ifndef ZOFIA_GAME_CPP__
+#define ZOFIA_GAME_CPP__
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -72,3 +75,4 @@ void ZOFIA Game::render() {
 
     this->m_window.display();
 }
+#endif

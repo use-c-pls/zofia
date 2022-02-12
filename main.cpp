@@ -1,5 +1,6 @@
-#include <SFML/Graphics.hpp>
 #include "core/core.hpp"
+#include "menu/MenuScene.cpp"
+#include "logging/StoutLogging.cpp"
 
 const int WIDTH = 1200;
 const int HEIGHT = 1800;
@@ -7,6 +8,12 @@ const int HEIGHT = 1800;
 int main() {
     zofia::Greeting::greeting("Luke");
     zofia::Game game(zofia::Size(WIDTH, HEIGHT));
+    zofia::MenuScene menuScene(&game);
+
+    zofia::StoutLogging log;
+    log.changeLogLevel("DEBUG");
+    log.debug("OK");
+
     game.run();
     return 0;
 }

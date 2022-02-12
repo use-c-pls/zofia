@@ -29,9 +29,14 @@ list(APPEND GAME_SOURCE
         core/Size.cpp
         core/Greeting.cpp
         core/Game.cpp
+        logging/Logging.cpp
+        logging/StoutLogging.cpp
+
+        menu/MenuScene.cpp
         )
 list(APPEND GAME_HEADER
         core/core.hpp
+        logging/logging.hpp
         )
 #
 set(all_code_files
