@@ -29,6 +29,7 @@ list(APPEND GAME_SOURCE
         core/Size.cpp
         core/Greeting.cpp
         core/Game.cpp
+        core/Config.cpp
         )
 list(APPEND GAME_HEADER
         core/core.hpp

@@ -1,0 +1,18 @@
+{
+  "window_width": 1000,
+  "window_height": 1200,
+  "volume": 0,
+  "language": "en",
+  "key_binding": {
+    "up": "g",
+    "down": "s",
+    "left": "a",
+    "right": "d",
+    "pause": "esc",
+    "resume": "esc",
+    "fire": "f",
+    "close": "x",
+    "minimize": "-",
+    "maximize": "m"
+  }
+}
