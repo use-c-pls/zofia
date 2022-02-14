@@ -26,8 +26,7 @@ set(GAME_SOURCE
         core/Application.cpp
         core/Config.cpp
         core/Constant.cpp
-        entities/Entity.cpp
-        logging/Logging.cpp
+
         core/Game.cpp
         core/Greeting.cpp
         core/Size.cpp
@@ -39,7 +38,11 @@ set(GAME_SOURCE
         logging/BaseLogger.cpp
         logging/Logger.cpp
 
-        menu/MenuScene.cpp)
+        entities/Entity.cpp
+        entities/Typography.cpp
+        entities/Rectangle.cpp
+
+        menu/MenuScene.cpp )
 
 set(GAME_HEADER
         core/core.hpp

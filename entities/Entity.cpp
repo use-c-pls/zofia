@@ -19,21 +19,10 @@ namespace zofia {
             explicit Entity(){
                 this->init();
             }
+
             ~Entity();
             virtual void init();
             virtual void updateState();
             virtual void draw(sf::RenderWindow& window);
     };
 }
-
-/*
-void ZOFIA Entity::init(){
-
-}
-
-void ZOFIA Entity::updateState() {
-
-}
-
-void ZOFIA Entity::draw(sf::RenderWindow& window){
-}*/

@@ -5,7 +5,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "../logging/logging.hpp"
-
+#include "../entities/Typography.cpp"
 #include "state/BlankState.cpp"
 #include "state/StateFactory.cpp"
 #include "state/StateManager.cpp"
@@ -36,11 +36,15 @@ zofia::Game::~Game() {
 }
 
 void zofia::Game::run() {
+    Typography typo{"resources/fonts/arial.ttf"};
     while (m_stateMachine.isRunning()) {
         m_stateMachine.nextState();
         m_stateMachine.processEvents();
         m_stateMachine.update();
         m_stateMachine.draw();
+
+        //place for test here bro fuc k you bro
+        typo.draw(this->m_window);
     }
 }
 #endif
