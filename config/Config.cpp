@@ -20,7 +20,6 @@ namespace zofia {
           int m_height = 0;
           int m_volume = 0;
           std::string m_language = "en";
-          std::string m_fontPath;
 
           std::map<std::string, std::string> m_keyBindings;
 
@@ -34,7 +33,6 @@ namespace zofia {
           int getWidth();
           int getVolume();
           std::string getLanguage();
-          std::string getFontPath();
           std::string getKeyBinding(const std::string &key);
     };
 }
@@ -53,7 +51,6 @@ void zofia::Config::init(const std::string &configPath) {
     this->m_height = get(rootJson, "window_height", zofia::DEFAULT_GAME_HEIGHT);
     this->m_language = get(rootJson, "language", "en");
     this->m_volume = get(rootJson, "volume", 1800);
-    this->m_fontPath = get(rootJson, "font_path", zofia::DEFAULT_FONT_PATH);
 
     Poco::JSON::Object::Ptr keyBindingMap = getFromJsonObject(rootJson, "key_binding");
     std::string up = get(keyBindingMap, "up", zofia::DEFAULT_KEY_BINDING["up"]);
@@ -87,9 +84,6 @@ std::string ZOFIA Config::getLanguage() {
 
 std::string ZOFIA Config::getKeyBinding(const std::string &key) {
     return this->m_keyBindings[key];
-}
-std::string zofia::Config::getFontPath() {
-    return this->m_fontPath;
 }
 //----------------
 
