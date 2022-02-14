@@ -31,7 +31,7 @@ list(APPEND GAME_SOURCE
         core/Game.cpp
         core/Config.cpp
         core/Constant.cpp
-
+        entities/Entity.cpp
         logging/Logging.cpp
 
         menu/MenuScene.cpp
