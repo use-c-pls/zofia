@@ -36,23 +36,7 @@ namespace zofia {
     };
 }
 
-std::string readConfigAsString(const std::string &path) {
-    std::ifstream ifs(path, std::ifstream::binary);
-    std::filebuf *fileBuf = ifs.rdbuf();
-
-    std::size_t size = fileBuf->pubseekoff(0, ifs.end, std::ifstream::in);
-    fileBuf->pubseekpos(0, std::ifstream::in);
-    char *buffer = new char[size];
-    fileBuf->sgetn(buffer, size);
-
-    std::string str(buffer);
-
-    ifs.close();
-    delete[] buffer;
-
-    return str;
-}
-
+std::string readConfigAsString(const std::string &path);
 Poco::JSON::Object::Ptr parse(const std::string &jsonStr);
 Poco::JSON::Object::Ptr getFromJsonObject(Poco::JSON::Object::Ptr root, const std::string &key);
 int get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, int defaultValue);
@@ -101,6 +85,23 @@ std::string ZOFIA Config::getKeyBinding(const std::string &key) {
     return this->m_keyBindings[key];
 }
 //----------------
+
+std::string readConfigAsString(const std::string &path) {
+    std::ifstream ifs(path, std::ifstream::binary);
+    std::filebuf *fileBuf = ifs.rdbuf();
+
+    std::size_t size = fileBuf->pubseekoff(0, ifs.end, std::ifstream::in);
+    fileBuf->pubseekpos(0, std::ifstream::in);
+    char *buffer = new char[size];
+    fileBuf->sgetn(buffer, size);
+
+    std::string str(buffer);
+
+    ifs.close();
+    delete[] buffer;
+
+    return str;
+}
 
 Poco::JSON::Object::Ptr parse(const std::string &jsonStr) {
     Poco::JSON::Parser parser;
