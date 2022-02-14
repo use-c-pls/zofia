@@ -23,10 +23,10 @@ conan_basic_setup()
 #####################################################################################################################################
 #### Internal api #####
 set(GAME_SOURCE
-        core/Application.cpp
-        core/Config.cpp
-        core/Constant.cpp
+        config/Config.cpp
+        config/Constant.cpp
 
+        core/Application.cpp
         core/Game.cpp
         core/Greeting.cpp
         core/Size.cpp
@@ -39,15 +39,15 @@ set(GAME_SOURCE
         logging/Logger.cpp
 
         entities/Entity.cpp
-        entities/Typography.cpp
         entities/Rectangle.cpp
+        entities/Typography.cpp
 
-        menu/MenuScene.cpp )
+        menu/MenuScene.cpp)
 
 set(GAME_HEADER
+        config/config.hpp
         core/core.hpp
-        logging/logging.hpp
-        )
+        logging/logging.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}

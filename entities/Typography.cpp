@@ -3,66 +3,61 @@
 //
 #ifndef ZOFIA_TPG_CPP__
 #define ZOFIA_TPG_CPP__
+
+#include "../config/Config.cpp"
+#include "../logging/logging.hpp"
 #include "Entity.cpp"
 
 #define ZOFIA zofia::
 namespace zofia {
-    class Typography : public Entity{
+    class Typography : public Entity {
         private:
-            sf::Text m_text{};
+          sf::Text m_text;
+          sf::Font m_font;
         public:
-            explicit Typography(sf::RenderWindow& window) : Entity(window){
-                this->init();
-            }
-            explicit Typography(sf::RenderWindow& window,const std::string& fontPath) : Entity(window){
-                this->init();
-                //setFontFromStream(fontPath);
-            }
-            ~Typography();
-            void draw() ;
-            void init() ;//override;
-            sf::Text getText(){
-                return this->m_text;
-            }
-            void setFontFromStream(const std::string& path);
+          explicit Typography(sf::RenderWindow &window, std::string &fontPath) : Entity(window) {
+              this->initFont(fontPath);
+              this->m_text = createText("");
+          };
+          explicit Typography(sf::RenderWindow &window) : Entity(window) {
+              this->initFont(DEFAULT_FONT_PATH);
+              this->m_text = createText("");
+          }
+          ~Typography();
+          void draw() override;
+          void updateText(const std::string &text);
+        private:
+          sf::Text createText(const std::string &message);
+          void initFont(std::string fontPath);
     };
 }
 
-void zofia::Typography::init(){
-    //Nothing to initialize
-    this->m_text.setString("cac");
-    this->m_text.setCharacterSize(56); // in pixels, not points!
-    this->m_text.setFillColor(sf::Color::Red);
-    this->m_text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    sf::Font font;
-    font.loadFromFile("resources/fonts/arial.ttf");
-    this->m_text.setFont(font);
-
+zofia::Typography::~Typography() {
+    LOG_INFO("Destroying Typography...");
 }
 
-zofia::Typography::~Typography() {}
-
-void zofia::Typography::setFontFromStream(const std::string& path) {
-    /*sf::FileInputStream stream;
-    stream.open(path);*/
-    sf::Font font;
-    if(!font.loadFromFile(path)){
-        //Couldn't load from the path check path exist or not
-    }else{
-        this->m_text.setFont(font);
-    }
+void zofia::Typography::draw() {
+    this->m_window.draw(this->m_text);
 }
 
-void zofia::Typography::draw(){
-    /*sf::Text text;
-    text.setString("cac");
+sf::Text zofia::Typography::createText(const std::string &message) {
+    sf::Text text;
+    text.setString(message);
     text.setCharacterSize(56); // in pixels, not points!
     text.setFillColor(sf::Color::Red);
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    sf::Font font;
-    font.loadFromFile("resources/fonts/arial.ttf");
-    text.setFont(font);*/
-    this->m_window.draw(this->m_text);
-};
+    text.setFont(m_font);
+    return text;
+}
+
+void zofia::Typography::initFont(std::string fontPath) {
+    if (!m_font.loadFromFile(fontPath)) {
+        LOG_ERROR("Not found any font at `{}`", fontPath);
+    }
+}
+
+void zofia::Typography::updateText(const std::string &text) {
+    m_text.setString(text);
+}
 
 #endif

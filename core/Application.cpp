@@ -2,7 +2,7 @@
 #ifndef ZOFIA_APPLICATION_CPP__
 #define ZOFIA_APPLICATION_CPP__
 
-#include "Config.cpp"
+#include "../config/Config.cpp"
 #include "Game.cpp"
 
 namespace zofia {

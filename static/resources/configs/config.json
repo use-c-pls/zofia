@@ -1,6 +1,7 @@
 {
   "window_width": 1200,
   "window_height": 1800,
+  "font_path": "resources/fonts/arial.ttf",
   "volume": 0,
   "language": "en",
   "key_binding": {

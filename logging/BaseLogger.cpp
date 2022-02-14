@@ -1,11 +1,10 @@
 /* Author @daoluke */
-#ifndef __ZOFIA_LOGGING_CPP
-#define __ZOFIA_LOGGING_CPP
+#ifndef ZOFIA_LOGGING_CPP__
+#define ZOFIA_LOGGING_CPP__
 
 #include <memory>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include <algorithm>
 
 #define ZOFIA zofia::
 

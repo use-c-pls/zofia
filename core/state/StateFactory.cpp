@@ -1,6 +1,7 @@
 /* Author @daoluke */
 #ifndef ZOFIA_STATE_FACTORY_CPP__
 #define ZOFIA_STATE_FACTORY_CPP__
+
 #include "StateManager.cpp"
 
 namespace zofia {

@@ -3,8 +3,6 @@
 #define ZOFIA_CORE_HEADER_HPP_
 
 #include "Application.cpp"
-#include "Config.cpp"
-#include "Constant.cpp"
 #include "Game.cpp"
 #include "Greeting.cpp"
 #include "Size.cpp"

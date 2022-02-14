@@ -1,10 +1,12 @@
 /* Author @daoluke */
 #ifndef ZOFIA_STATE_MANAGER_CPP__
 #define ZOFIA_STATE_MANAGER_CPP__
+
 #include <memory>
 #include <stack>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "../../config/config.hpp"
 #include "../../logging/logging.hpp"
 
 #define ZOFIA zofia::
@@ -45,11 +47,12 @@ namespace zofia {
 
     class StateManager {
         private:
+          Config &m_config;
           std::stack<std::unique_ptr<zofia::BaseState>> m_states;
           bool m_resume;
           bool m_running;
         public:
-          StateManager();
+          explicit StateManager(Config &config) : m_resume(false), m_running(true), m_config(config) {};
           ~StateManager();
           void run(std::unique_ptr<zofia::BaseState> state);
 
@@ -70,8 +73,6 @@ namespace zofia {
     };
 }
 // --------------
-
-ZOFIA StateManager::StateManager() : m_resume(false), m_running(true) {}
 
 ZOFIA StateManager::~StateManager() {
     LOG_INFO("Cleaning up and closing StateMachine....");

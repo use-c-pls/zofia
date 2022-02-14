@@ -1,7 +1,8 @@
 /* Author @daoluke */
 #ifndef ZOFIA_MENU_SCENE_CPP__
 #define ZOFIA_MENU_SCENE_CPP__
-#include "../core/Application.cpp"
+
+#include "../core/Game.cpp"
 
 namespace zofia {
     class MenuScene {

@@ -1,12 +1,15 @@
 /* Author @daoluke */
 #ifndef ZOFIA_CONSTANT_CPP__
 #define ZOFIA_CONSTANT_CPP__
+
 #include <string>
 #include <map>
 
 namespace zofia {
     static std::string TITLE = "zofia";
     const std::string DEFAULT_CONFIG_PATH = "resources/configs/config.json";
+    const std::string DEFAULT_FONT_PATH = "resources/fonts/arial.ttf";
+
     static int DEFAULT_GAME_WIDTH = 1200;
     static int DEFAULT_GAME_HEIGHT = 1800;
 

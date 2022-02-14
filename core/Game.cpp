@@ -9,14 +9,12 @@
 #include "state/BlankState.cpp"
 #include "state/StateFactory.cpp"
 #include "state/StateManager.cpp"
-
-#include "Config.cpp"
-#include "Constant.cpp"
+#include "Size.cpp"
 
 namespace zofia {
     class Game {
         private:
-          StateManager m_stateMachine{};
+          StateManager m_stateMachine;
           sf::RenderWindow m_window;
         public:
           explicit Game(Config config);
@@ -24,10 +22,15 @@ namespace zofia {
           void run();
     };
 }
-zofia::Game::Game(Config config) {
-    m_window.create(sf::VideoMode(config.getWidth(), config.getHeight()),
-                    TITLE,
-                    sf::Style::Titlebar | sf::Style::Close);
+
+sf::VideoMode createVideoMode(zofia::Size size) {
+    return {static_cast<unsigned int>(size.getWidth()), static_cast<unsigned int>(size.getHeight())};
+}
+
+zofia::Game::Game(Config config) : m_stateMachine(config) {
+    Size size(config.getWidth(), config.getHeight());
+    m_window.create(createVideoMode(size), TITLE, sf::Style::Titlebar | sf::Style::Close);
+
     m_stateMachine.run(zofia::StateFactory::build<BlankState>(m_stateMachine, m_window, true));
 }
 
@@ -42,9 +45,6 @@ void zofia::Game::run() {
         m_stateMachine.processEvents();
         m_stateMachine.update();
         m_stateMachine.draw();
-
-
-        //typo.draw();
     }
 }
 #endif
