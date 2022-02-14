@@ -9,7 +9,8 @@
 #include "Greeting.cpp"
 #include "Size.cpp"
 
-#include "state/IntroState.cpp"
-#include "state/StateMachine.cpp"
+#include "state/BlankState.cpp"
+#include "state/StateFactory.cpp"
+#include "state/StateManager.cpp"
 
 #endif

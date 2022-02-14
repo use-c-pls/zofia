@@ -3,15 +3,15 @@
 #define ZOFIA_INTRO_STATE_CPP__
 #include <SFML/Graphics.hpp>
 
-#include "StateMachine.cpp"
+#include "StateManager.cpp"
 
 namespace zofia {
-    class IntroState final : public BaseState {
+    class BlankState final : public BaseState {
         public:
-          IntroState(StateMachine &machine, sf::RenderWindow &window, bool replace = true) : BaseState(machine,
+          BlankState(StateManager &machine, sf::RenderWindow &window, bool replace = true) : BaseState(machine,
                                                                                                        window,
                                                                                                        replace) {
-              LOG_INFO("IntroState is created");
+              LOG_INFO("BlankState is created");
           };
 
           void pause() override {
@@ -21,7 +21,7 @@ namespace zofia {
           }
 
           void processEvents() override {
-              sf::Event event;
+              sf::Event event{};
               while (m_window.pollEvent(event)) {
                   // "close requested" event: we close the window
                   if (event.type == sf::Event::Closed) {
@@ -32,7 +32,7 @@ namespace zofia {
           }
 
           void update() override {
-              LOG_DEBUG("IntroState updating");
+              LOG_DEBUG("BlankState updating");
           }
 
           void draw() override {

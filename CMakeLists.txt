@@ -30,8 +30,9 @@ set(GAME_SOURCE
         core/Greeting.cpp
         core/Size.cpp
 
-        core/state/IntroState.cpp
-        core/state/StateMachine.cpp
+        core/state/BlankState.cpp
+        core/state/StateFactory.cpp
+        core/state/StateManager.cpp
 
         logging/BaseLogger.cpp
         logging/Logger.cpp

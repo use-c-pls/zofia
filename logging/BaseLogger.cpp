@@ -63,17 +63,15 @@ void ZOFIA BaseLogger::changeLogLevel(std::string logLevel) {
         c = ::tolower(c);
     });
     if (logLevel == "debug") {
-        spdlog::set_level(spdlog::level::debug);
+        this->m_logger->set_level(spdlog::level::debug);
     } else if (logLevel == "info") {
-        spdlog::set_level(spdlog::level::info);
-
+        this->m_logger->set_level(spdlog::level::info);
     } else if (logLevel == "warning") {
-        spdlog::set_level(spdlog::level::warn);
-
+        this->m_logger->set_level(spdlog::level::warn);
     } else if (logLevel == "error") {
-        spdlog::set_level(spdlog::level::err);
+        this->m_logger->set_level(spdlog::level::err);
     } else if (logLevel == "critical") {
-        spdlog::set_level(spdlog::level::critical);
+        this->m_logger->set_level(spdlog::level::critical);
     }
 }
 
