@@ -14,7 +14,6 @@
 namespace zofia {
     class Config {
         private:
-          const std::string PATH = "resources/configs/config.json";
           int m_width = 0;
           int m_height = 0;
           int m_volume = 0;
@@ -22,10 +21,10 @@ namespace zofia {
 
           std::map<std::string, std::string> m_keyBindings;
 
-          void init();
+          void init(const std::string &configPath);
         public:
-          explicit Config() {
-              this->init();
+          explicit Config(const std::string& configPath) {
+              this->init(configPath);
           };
 
           int getHeight();
@@ -42,8 +41,8 @@ Poco::JSON::Object::Ptr getFromJsonObject(Poco::JSON::Object::Ptr root, const st
 int get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, int defaultValue);
 std::string get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, std::string defaultValue);
 
-void zofia::Config::init() {
-    std::string jsonStr = readConfigAsString(this->PATH);
+void zofia::Config::init(const std::string &configPath) {
+    std::string jsonStr = readConfigAsString(configPath);
     Poco::JSON::Object::Ptr rootJson = parse(jsonStr);
 
     this->m_width = get(rootJson, "window_width", zofia::DEFAULT_GAME_WIDTH);

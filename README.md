@@ -20,3 +20,6 @@ build_type=Release
 [env]
 ````
 - Run run-mac.sh
+
+# Docs
+1. Game State: http://gamedevgeek.com/tutorials/managing-game-states-in-c/

@@ -5,6 +5,8 @@
 #include <map>
 
 namespace zofia {
+    static std::string TITLE = "zofia";
+    const std::string DEFAULT_CONFIG_PATH = "resources/configs/config.json";
     static int DEFAULT_GAME_WIDTH = 1200;
     static int DEFAULT_GAME_HEIGHT = 1800;
 

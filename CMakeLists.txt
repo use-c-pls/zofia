@@ -22,30 +22,31 @@ conan_basic_setup()
 
 #####################################################################################################################################
 #### Internal api #####
-set(GAME_SOURCE)
-set(GAME_HEADER)
-
-list(APPEND GAME_SOURCE
-        core/Size.cpp
-        core/Greeting.cpp
-        core/Game.cpp
+set(GAME_SOURCE
+        core/Application.cpp
         core/Config.cpp
         core/Constant.cpp
+        core/Game.cpp
+        core/Greeting.cpp
+        core/Size.cpp
 
-        logging/Logging.cpp
+        core/state/IntroState.cpp
+        core/state/StateMachine.cpp
 
-        menu/MenuScene.cpp
-        )
-list(APPEND GAME_HEADER
+        logging/BaseLogger.cpp
+        logging/Logger.cpp
+
+        menu/MenuScene.cpp)
+
+set(GAME_HEADER
         core/core.hpp
-
         logging/logging.hpp
         )
 #
 set(all_code_files
         ${GAME_HEADER}
-        ${GAME_SOURCE}
-        )
+        ${GAME_SOURCE})
+
 add_library(${APP_NAME} SHARED ${all_code_files})
 
 add_executable(zofia main.cpp)
