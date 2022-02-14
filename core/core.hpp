@@ -2,11 +2,15 @@
 #ifndef ZOFIA_CORE_HEADER_HPP_
 #define ZOFIA_CORE_HEADER_HPP_
 
-#include "Greeting.cpp"
-#include "Game.cpp"
-
+#include "Application.cpp"
 #include "Config.cpp"
-#include "Size.cpp"
 #include "Constant.cpp"
+#include "Game.cpp"
+#include "Greeting.cpp"
+#include "Size.cpp"
+
+#include "state/BlankState.cpp"
+#include "state/StateFactory.cpp"
+#include "state/StateManager.cpp"
 
 #endif

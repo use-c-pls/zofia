@@ -2,88 +2,45 @@
 #ifndef ZOFIA_GAME_CPP__
 #define ZOFIA_GAME_CPP__
 
-#include <SFML/Graphics.hpp>
-
-#include "Size.cpp"
-#include "Config.cpp"
-#include "Constant.cpp"
+#include <SFML/Graphics/RenderWindow.hpp>
 
 #include "../logging/logging.hpp"
 
-#define ZOFIA zofia::
+#include "state/BlankState.cpp"
+#include "state/StateFactory.cpp"
+#include "state/StateManager.cpp"
+
+#include "Config.cpp"
+#include "Constant.cpp"
 
 namespace zofia {
     class Game {
         private:
-          const std::string TITLE = "Zofia";
-
-          zofia::Logging LOG;
-
+          StateManager m_stateMachine{};
           sf::RenderWindow m_window;
-          sf::Event m_sfEvent{};
-
-          Size m_size;
-
-          void updateSfEvent();
-
         public:
-          Game() : Game(Size(zofia::DEFAULT_GAME_WIDTH, zofia::DEFAULT_GAME_HEIGHT)) {}
-
-          explicit Game(Size size) : m_size(size.getWidth(), size.getHeight()),
-                                     m_window(sf::VideoMode(size.getWidth(), size.getHeight()), TITLE) {
-              this->LOG.info("Running game " + TITLE);
-          }
-
-          explicit Game(Config *config) : m_size(config->getWidth(), config->getHeight()),
-                                          m_window(sf::VideoMode(config->getWidth(), config->getHeight()), TITLE) {
-              std::cout << "Address config 2 #" << config << std::endl;
-              this->LOG.info("Using config to running game " + TITLE);
-          }
-
+          explicit Game(Config config);
           virtual ~Game();
-
-          std::string getTitle() const {
-              return TITLE;
-          }
-
-          Size getSize() const {
-              return m_size;
-          }
-
           void run();
-          void update();
-          void render();
     };
 }
-
-ZOFIA Game::~Game() {
-    this->LOG.info("Cleaning up GameEngine ...");
+zofia::Game::Game(Config config) {
+    m_window.create(sf::VideoMode(config.getWidth(), config.getHeight()),
+                    TITLE,
+                    sf::Style::Titlebar | sf::Style::Close);
+    m_stateMachine.run(zofia::StateFactory::build<BlankState>(m_stateMachine, m_window, true));
 }
 
-void ZOFIA Game::updateSfEvent() {
-    while (this->m_window.pollEvent(this->m_sfEvent)) {
-        // "close requested" event: we close the window
-        if (this->m_sfEvent.type == sf::Event::Closed)
-            this->m_window.close();
+zofia::Game::~Game() {
+    LOG_INFO("Cleaning up and closing Game....");
+}
+
+void zofia::Game::run() {
+    while (m_stateMachine.isRunning()) {
+        m_stateMachine.nextState();
+        m_stateMachine.processEvents();
+        m_stateMachine.update();
+        m_stateMachine.draw();
     }
-}
-
-void ZOFIA Game::run() {
-    while (this->m_window.isOpen()) {
-        this->update();
-        this->render();
-    }
-}
-
-void ZOFIA Game::update() {
-    this->updateSfEvent();
-}
-
-void ZOFIA Game::render() {
-    this->m_window.clear();
-
-    // draw everything here...
-
-    this->m_window.display();
 }
 #endif
