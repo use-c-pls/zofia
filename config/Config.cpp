@@ -24,23 +24,32 @@ namespace zofia {
           std::map<std::string, std::string> m_keyBindings;
 
           void init(const std::string &configPath);
+
         public:
           explicit Config(const std::string &configPath) {
               this->init(configPath);
           };
 
           int getHeight();
+
           int getWidth();
+
           int getVolume();
+
           std::string getLanguage();
+
           std::string getKeyBinding(const std::string &key);
     };
 }
 
 std::string readConfigAsString(const std::string &path);
+
 Poco::JSON::Object::Ptr parse(const std::string &jsonStr);
+
 Poco::JSON::Object::Ptr getFromJsonObject(Poco::JSON::Object::Ptr root, const std::string &key);
+
 int get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, int defaultValue);
+
 std::string get(const Poco::JSON::Object::Ptr &jsonObject, std::string key, std::string defaultValue);
 
 void zofia::Config::init(const std::string &configPath) {

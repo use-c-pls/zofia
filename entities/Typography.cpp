@@ -10,17 +10,21 @@
 #include "../logging/logging.hpp"
 #include "Entity.cpp"
 #include "EntityContext.cpp"
+
 #define ZOFIA zofia::
 namespace zofia {
-    class TypographyContext : public EntityContext{
+    class TypographyContext : public EntityContext {
         public:
-            std::string m_text;
-            int m_textSize;
-            explicit TypographyContext(std::string text,int textSize) : m_text(text),m_textSize(textSize){}
-            virtual ~TypographyContext() = default;
+          std::string m_text;
+          int m_textSize;
+
+          explicit TypographyContext(std::string text, int textSize) : m_text(text), m_textSize(textSize) {}
+
+          virtual ~TypographyContext() = default;
 
 
     };
+
     class Typography : public Entity<TypographyContext> {
         private:
           sf::Text m_text;
@@ -30,15 +34,21 @@ namespace zofia {
               this->initFont(fontPath);
               this->m_text = createText("");
           };
+
           explicit Typography(sf::RenderWindow &window) : Entity(window) {
               this->initFont(DEFAULT_FONT_PATH);
               this->m_text = createText("");
           }
+
           virtual ~Typography();
+
           void draw() override;
-          void update(TypographyContext& context) override;
+
+          void update(TypographyContext &context) override;
+
         private:
           sf::Text createText(const std::string &message);
+
           void initFont(std::string fontPath);
     };
 }
@@ -67,7 +77,7 @@ void zofia::Typography::initFont(std::string fontPath) {
     }
 }
 
-void zofia::Typography::update(TypographyContext& context){
+void zofia::Typography::update(TypographyContext &context) {
     this->m_text.setString(context.m_text);
     this->m_text.setCharacterSize(context.m_textSize);
 }

@@ -5,8 +5,8 @@
 #ifndef ZOFIA_ETC_CPP__
 #define ZOFIA_ETC_CPP__
 
-namespace zofia{
-    class EntityContext{
+namespace zofia {
+    class EntityContext {
 
     };
 }

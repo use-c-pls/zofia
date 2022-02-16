@@ -14,11 +14,11 @@ namespace zofia {
     static int DEFAULT_GAME_HEIGHT = 1800;
 
     static std::map<std::string, std::string> DEFAULT_KEY_BINDING = {
-        {"up", "w"},
-        {"down", "s"},
-        {"left", "a"},
-        {"right", "d"},
-        {"fire", "f"}
+            {"up",    "w"},
+            {"down",  "s"},
+            {"left",  "a"},
+            {"right", "d"},
+            {"fire",  "f"}
     };
 }
 

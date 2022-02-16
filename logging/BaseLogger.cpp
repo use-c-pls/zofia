@@ -40,6 +40,7 @@ namespace zofia {
           void warn(const std::string fmt, Args &...args) {
               this->m_logger->warn(fmt, args...);
           }
+
           template<typename... Args>
           void error(const std::string fmt, Args &...args) {
               this->m_logger->error(fmt, args...);

@@ -8,10 +8,12 @@ namespace zofia {
     class StateFactory {
         public:
           StateFactory() = default;
+
           template<typename T>
           static std::unique_ptr<T> build(zofia::StateManager &machine, sf::RenderWindow &window, bool replace = true);
     };
 }
+
 // -----------
 template<typename T, typename... Args>
 std::unique_ptr<T> make_unique(Args &&... args);

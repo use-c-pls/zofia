@@ -18,7 +18,9 @@ namespace zofia {
           sf::RenderWindow m_window;
         public:
           explicit Game(Config config);
+
           virtual ~Game();
+
           void run();
     };
 }
@@ -47,4 +49,5 @@ void zofia::Game::run() {
         m_stateMachine.draw();
     }
 }
+
 #endif
