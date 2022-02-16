@@ -31,6 +31,8 @@ set(GAME_SOURCE
         core/Greeting.cpp
         core/Size.cpp
 
+        core/state/HelloState.cpp
+        core/state/MenuState.cpp
         core/state/BlankState.cpp
         core/state/StateFactory.cpp
         core/state/StateManager.cpp
@@ -41,9 +43,7 @@ set(GAME_SOURCE
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp
-
-        menu/MenuScene.cpp)
+        entities/EntityContext.cpp)
 
 set(GAME_HEADER
         config/config.hpp

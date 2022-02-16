@@ -7,8 +7,11 @@
 #include "../logging/logging.hpp"
 #include "../entities/Typography.cpp"
 #include "state/BlankState.cpp"
+#include "state/HelloState.cpp"
+#include "state/MenuState.cpp"
 #include "state/StateFactory.cpp"
 #include "state/StateManager.cpp"
+
 #include "Size.cpp"
 
 namespace zofia {
@@ -33,7 +36,8 @@ zofia::Game::Game(Config config) : m_stateMachine(config) {
     Size size(config.getWidth(), config.getHeight());
     m_window.create(createVideoMode(size), TITLE, sf::Style::Titlebar | sf::Style::Close);
 
-    m_stateMachine.run(zofia::StateFactory::build<BlankState>(m_stateMachine, m_window, true));
+    //m_stateMachine.run(zofia::StateFactory::build<BlankState>(m_stateMachine, m_window, true));
+    m_stateMachine.run(zofia::StateFactory::build<HelloState>(m_stateMachine, m_window, true));
 }
 
 zofia::Game::~Game() {
