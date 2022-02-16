@@ -3,6 +3,7 @@
 #define ZOFIA_LOGGING_CPP__
 
 #include <memory>
+#include <algorithm>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
