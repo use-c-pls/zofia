@@ -4,13 +4,24 @@
 #ifndef ZOFIA_TPG_CPP__
 #define ZOFIA_TPG_CPP__
 
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include "../config/Config.cpp"
 #include "../logging/logging.hpp"
 #include "Entity.cpp"
-
+#include "EntityContext.cpp"
 #define ZOFIA zofia::
 namespace zofia {
-    class Typography : public Entity {
+    class TypographyContext : public EntityContext{
+        public:
+            std::string m_text;
+            int m_textSize;
+            explicit TypographyContext(std::string text,int textSize) : m_text(text),m_textSize(textSize){}
+            virtual ~TypographyContext() = default;
+
+
+    };
+    class Typography : public Entity<TypographyContext> {
         private:
           sf::Text m_text;
           sf::Font m_font;
@@ -23,9 +34,9 @@ namespace zofia {
               this->initFont(DEFAULT_FONT_PATH);
               this->m_text = createText("");
           }
-          ~Typography();
+          virtual ~Typography();
           void draw() override;
-          void updateText(const std::string &text);
+          void update(TypographyContext& context) override;
         private:
           sf::Text createText(const std::string &message);
           void initFont(std::string fontPath);
@@ -56,8 +67,9 @@ void zofia::Typography::initFont(std::string fontPath) {
     }
 }
 
-void zofia::Typography::updateText(const std::string &text) {
-    m_text.setString(text);
+void zofia::Typography::update(TypographyContext& context){
+    this->m_text.setString(context.m_text);
+    this->m_text.setCharacterSize(context.m_textSize);
 }
 
 #endif

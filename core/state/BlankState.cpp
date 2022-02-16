@@ -16,6 +16,7 @@ namespace zofia {
               : BaseState(machine, window, replace), m_typo(window) {
               LOG_INFO("BlankState is created");
           };
+          virtual ~BlankState() = default;
 
           void pause() override {
           }
@@ -36,7 +37,8 @@ namespace zofia {
           void update() override {
               int val = rand() % 100 + 1;
               std::string str = "Random: " + std::to_string(val) + "\n";
-              m_typo.updateText(str);
+              TypographyContext context(str,54);
+              m_typo.update(context);
               LOG_DEBUG("BlankState updating");
           }
 

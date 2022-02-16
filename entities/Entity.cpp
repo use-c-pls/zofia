@@ -4,20 +4,18 @@
 #ifndef ZOFIA_ET_CPP__
 #define ZOFIA_ET_CPP__
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-
 #define ZOFIA zofia::
 namespace zofia {
+    template<class EntityContext>
     class Entity {
         protected:
           sf::RenderWindow &m_window;
         public:
           explicit Entity(sf::RenderWindow &window) : m_window{window} {
           }
-          virtual void update() {};
+
+          virtual void update(EntityContext& context) = 0;
           virtual void draw() = 0;
     };
 }

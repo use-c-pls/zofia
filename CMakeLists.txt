@@ -41,6 +41,7 @@ set(GAME_SOURCE
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
+        entities/EntityContext.cpp
 
         menu/MenuScene.cpp)
 
