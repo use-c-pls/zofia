@@ -23,3 +23,6 @@ build_type=Release
 
 # Docs
 1. Game State: http://gamedevgeek.com/tutorials/managing-game-states-in-c/
+2. High performance Sprite: https://github.com/SFML/SFML/wiki/Source%3A-High-Performance-Sprite-Container
+3. Delta time: https://drewcampbell92.medium.com/understanding-delta-time-b53bf4781a03#:~:text=Delta%20time%2C%20or%20also%20referred,drawn%20and%20the%20current%20frame
+4. JPEG: https://www.youtube.com/watch?v=Kv1Hiv3ox8I
