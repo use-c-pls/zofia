@@ -23,32 +23,41 @@ conan_basic_setup()
 #####################################################################################################################################
 #### Internal api #####
 set(GAME_SOURCE
-        config/Config.cpp
-        config/Constant.cpp
-
         core/Application.cpp
         core/Game.cpp
         core/Greeting.cpp
         core/Size.cpp
 
-        core/state/BlankState.cpp
-        core/state/StateFactory.cpp
-        core/state/StateManager.cpp
+        core/config/Config.cpp
+        core/config/Constant.cpp
 
-        logging/BaseLogger.cpp
-        logging/Logger.cpp
+        core/logging/BaseLogger.cpp
+        core/logging/Logger.cpp
+
+        game-states/BaseState.cpp
+        game-states/ExampleState.cpp
+        game-states/StateFactory.cpp
+        game-states/StateManager.cpp
+
+        game-states/intro/IntroState.cpp
 
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp
-
-        menu/MenuScene.cpp)
+        entities/EntityContext.cpp)
 
 set(GAME_HEADER
-        config/config.hpp
+        core/config/config.hpp
+
         core/core.hpp
-        logging/logging.hpp)
+
+        core/logging/logging.hpp
+
+        entities/base.hpp
+        entities/full.hpp
+
+        game-states/base.hpp
+        game-states/intro/intro.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}

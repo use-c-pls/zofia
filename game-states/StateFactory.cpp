@@ -2,6 +2,7 @@
 #ifndef ZOFIA_STATE_FACTORY_CPP__
 #define ZOFIA_STATE_FACTORY_CPP__
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include "StateManager.cpp"
 
 namespace zofia {
