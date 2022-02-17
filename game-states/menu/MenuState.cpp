@@ -2,9 +2,10 @@
 #ifndef ZOFIA_MENU_SCENE_CPP__
 #define ZOFIA_MENU_SCENE_CPP__
 
-#include "../Game.cpp"
-#include "StateManager.cpp"
-#include "StateFactory.cpp"
+#include <SFML/Graphics.hpp>
+#include "../../entities/full.hpp"
+#include "../StateManager.cpp"
+
 
 namespace zofia {
     class MenuState final : public BaseState {
@@ -37,7 +38,7 @@ namespace zofia {
           }
 
           void update() override {
-
+              LOG_DEBUG("MenuState update");
           }
 
           void draw() override {

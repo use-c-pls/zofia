@@ -2,7 +2,8 @@
 #ifndef ZOFIA_APPLICATION_CPP__
 #define ZOFIA_APPLICATION_CPP__
 
-#include "../config/Config.cpp"
+#include "config/config.hpp"
+
 #include "Game.cpp"
 
 namespace zofia {
@@ -22,7 +23,7 @@ void zofia::Application::run(const std::string &configPath = zofia::DEFAULT_CONF
     zofia::Config config(configPath);
     zofia::Game game(config);
 
-    game.run();
+    game.runExample();
 }
 
 #endif

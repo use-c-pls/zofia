@@ -3,21 +3,17 @@
 #define ZOFIA_INTRO_STATE_CPP__
 
 #include <SFML/Graphics.hpp>
-
-#include "../../entities/Typography.cpp"
-#include "StateManager.cpp"
+#include "../StateManager.cpp"
 
 namespace zofia {
-    class BlankState final : public BaseState {
-        private:
-          Typography m_typo;
+    class IntroState final : public BaseState {
         public:
-          BlankState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
-                  : BaseState(machine, window, replace), m_typo(window) {
+          IntroState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
+                  : BaseState(machine, window, replace) {
               LOG_INFO("BlankState is created");
           };
 
-          virtual ~BlankState() = default;
+          virtual ~IntroState() = default;
 
           void pause() override {
           }
@@ -37,16 +33,11 @@ namespace zofia {
           }
 
           void update() override {
-              int val = rand() % 100 + 1;
-              std::string str = "Random: " + std::to_string(val) + "\n";
-              TypographyContext context(str, 54);
-              m_typo.update(context);
-              LOG_DEBUG("BlankState updating");
+              LOG_DEBUG("IntroStates updating");
           }
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_typo.draw();
               m_window.display();
           }
     };

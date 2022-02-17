@@ -7,8 +7,4 @@
 #include "Greeting.cpp"
 #include "Size.cpp"
 
-#include "state/BlankState.cpp"
-#include "state/StateFactory.cpp"
-#include "state/StateManager.cpp"
-
 #endif
