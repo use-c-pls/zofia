@@ -10,10 +10,10 @@ namespace zofia {
           Typography m_typo;
           Rectangle m_background;
         public:
-          MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true) : BaseState(machine, window, replace), m_typo(window),
-                                                                                            m_background(window,
-                                                                                                         "resources/backgrounds/menu_background.png",
-                                                                                                         Size(1920, 1080), Position(0, 0)) {
+          MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
+                  : BaseState(machine, window, replace), m_typo(window),
+                    m_background(window, "resources/backgrounds/menu_background.png",
+                                 Size(1920, 1080), Position(0, 0)) {
               LOG_INFO("MenuState is created");
           };
 

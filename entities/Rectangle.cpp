@@ -9,9 +9,9 @@
 
 #include "../core/Size.cpp"
 #include "../core/Position.cpp"
-#include "../entities/base.hpp"
-
 #include "../core/logging/logging.hpp"
+
+#include "../entities/base.hpp"
 
 #define ZOFIA zofia::
 
@@ -21,7 +21,7 @@ namespace zofia {
           Size m_size;
           Position m_position;
 
-          explicit RectangleContext(Size& size,Position& position) : m_size(size), m_position(position) {}
+          explicit RectangleContext(Size &size, Position &position) : m_size(size), m_position(position) {}
 
           virtual ~RectangleContext() = default;
     };
@@ -35,23 +35,28 @@ namespace zofia {
           sf::IntRect m_rect;
 
           sf::Texture createTexture(std::string path);
+
         public:
 
-          explicit Rectangle(sf::RenderWindow &window, std::string path, const Size &size, const Position &startPosition)
-                  : m_size(size),m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
+          explicit Rectangle(sf::RenderWindow &window, const std::string &path, const Size &size,
+                             const Position &startPosition)
+                  : m_size(size),
+                    m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
                     m_position(startPosition), Entity(window) {
               this->m_texture = createTexture(path);//tie texture to rect in createTexture
               this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
           }
 
-          Rectangle(sf::RenderWindow &window,std::string path, const int &width, const int &height, const int &x, const int &y) : Rectangle(window,path,Size(width,height),Position(x,y)){}
+          Rectangle(sf::RenderWindow &window, const std::string &path,
+                    const int &width, const int &height,
+                    const int &x, const int &y)
+                  : Rectangle(window, path, Size(width, height), Position(x, y)) {}
 
           virtual ~Rectangle() = default;
 
           void draw() override;
 
-          void update(RectangleContext& context) override;
-
+          void update(RectangleContext &context) override;
 
 
           Size getSize() const {
@@ -71,11 +76,11 @@ sf::Texture zofia::Rectangle::createTexture(std::string path) {
     clock.restart();
 
     if (!texture.loadFromFile(path, this->m_rect)) {
-
+        LOG_ERROR("Not found background at `{}`", path);
     }
     sf::Time start = clock.getElapsedTime();
     float cost = start.asSeconds();
-    LOG_DEBUG("Time load image {} | cost {} second",path,cost);
+    LOG_DEBUG("Time load image {} | cost: {} second", path, cost);
     texture.setRepeated(false);
     return texture;
 }
@@ -84,7 +89,7 @@ void zofia::Rectangle::draw() {
     this->m_window.draw(this->m_sprite);
 }
 
-void zofia::Rectangle::update(RectangleContext& context) {
+void zofia::Rectangle::update(RectangleContext &context) {
 
 }
 
