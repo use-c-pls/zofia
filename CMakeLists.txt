@@ -45,7 +45,7 @@ set(GAME_SOURCE
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp)
+        entities/EntityContext.cpp core/Position.cpp)
 
 set(GAME_HEADER
         core/config/config.hpp

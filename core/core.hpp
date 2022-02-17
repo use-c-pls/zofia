@@ -6,5 +6,6 @@
 #include "Game.cpp"
 #include "Greeting.cpp"
 #include "Size.cpp"
+#include "Position.cpp"
 
 #endif

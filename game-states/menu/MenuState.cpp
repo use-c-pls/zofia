@@ -3,18 +3,17 @@
 #define ZOFIA_MENU_SCENE_CPP__
 
 #include <SFML/Graphics.hpp>
-#include "../../entities/full.hpp"
-#include "../StateManager.cpp"
-
 
 namespace zofia {
     class MenuState final : public BaseState {
         private:
           Typography m_typo;
+          Rectangle m_background;
         public:
-          MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true) : BaseState(machine, window,
-                                                                                                      replace),
-                                                                                            m_typo(window) {
+          MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true) : BaseState(machine, window, replace), m_typo(window),
+                                                                                            m_background(window,
+                                                                                                         "resources/backgrounds/menu_background.jpg",
+                                                                                                         Size(1920, 1080), Position(0, 0)) {
               LOG_INFO("MenuState is created");
           };
 
@@ -38,12 +37,13 @@ namespace zofia {
           }
 
           void update() override {
-              LOG_DEBUG("MenuState update");
+              //LOG_DEBUG("MenuState update");
           }
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_typo.draw();
+              m_background.draw();
+              //m_typo.draw();
               m_window.display();
           }
     };
