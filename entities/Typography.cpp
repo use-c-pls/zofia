@@ -22,6 +22,12 @@ namespace zofia {
 
           explicit TypographyContext(std::string text, int textSize) : m_text(text), m_textSize(textSize) {}
 
+          explicit TypographyContext(){}
+
+          explicit TypographyContext(std::string text) : m_text(text){}
+
+          explicit TypographyContext(int textSize) : m_textSize(textSize){}
+
           virtual ~TypographyContext() = default;
 
 
@@ -47,6 +53,10 @@ namespace zofia {
           void draw() override;
 
           void update(TypographyContext &context) override;
+
+          sf::Text getText() const{
+                return this->m_text;
+          }
 
         private:
           sf::Text createText(const std::string &message);

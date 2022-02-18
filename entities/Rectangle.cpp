@@ -20,10 +20,24 @@ namespace zofia {
         public:
           Size m_size;
           Position m_position;
+          sf::Color m_color;
+          explicit RectangleContext(Size &size, Position &position,sf::Color &color) : m_size(size), m_position(position),m_color(color) {}
 
           explicit RectangleContext(Size &size, Position &position) : m_size(size), m_position(position) {}
 
           virtual ~RectangleContext() = default;
+
+          Size getSize() const{
+              return this->m_size;
+          }
+
+          Position getPosition() const{
+              return this->m_position;
+          }
+
+          sf::Color getColor() const{
+              return this->m_color;
+          }
     };
 
     class Rectangle : public Entity<RectangleContext> {
@@ -33,7 +47,6 @@ namespace zofia {
           Size m_size;
           Position m_position;
           sf::IntRect m_rect;
-
           sf::Texture createTexture(std::string path);
 
         public:
@@ -44,6 +57,15 @@ namespace zofia {
                     m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
                     m_position(startPosition), Entity(window) {
               this->m_texture = createTexture(path);//tie texture to rect in createTexture
+              this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
+          }
+
+          explicit Rectangle(sf::RenderWindow &window, const Size &size,
+                             const Position &startPosition)
+                  : m_size(size),
+                    m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
+                    m_position(startPosition), Entity(window) {
+              this->m_texture.create(size.getWidth(),size.getHeight());
               this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
           }
 
@@ -66,6 +88,11 @@ namespace zofia {
           Position getPosition() const {
               return this->m_position;
           }
+
+          sf::Color getColor() const{
+              return this->m_sprite.getColor();
+          }
+
     };
 }
 
@@ -90,7 +117,21 @@ void zofia::Rectangle::draw() {
 }
 
 void zofia::Rectangle::update(RectangleContext &context) {
-
+    if(m_sprite.getColor() != context.getColor()){
+        this->m_sprite.setColor(context.getColor());
+    }
+    if(this->m_rect.width != context.getSize().getWidth()){
+        this->m_rect.width = context.getSize().getWidth();
+    }
+    if(this->m_rect.height != context.getSize().getHeight()){
+        this->m_rect.height = context.getSize().getHeight();
+    }
+    if(this->m_rect.left != context.getPosition().getXAxis()){
+        this->m_rect.left = context.getPosition().getXAxis();
+    }
+    if(this->m_rect.top != context.getPosition().getYAxis()){
+        this->m_rect.top = context.getPosition().getYAxis();
+    }
 }
 
 #endif

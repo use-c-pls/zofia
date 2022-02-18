@@ -51,7 +51,7 @@ set(GAME_SOURCE
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp core/Position.cpp)
+        entities/EntityContext.cpp core/Position.cpp views/Button.cpp views/BaseView.cpp core/Color.cpp)
 
 set(GAME_HEADER
         core/config/config.hpp
@@ -65,7 +65,7 @@ set(GAME_HEADER
 
         game-states/base.hpp
         game-states/intro/intro.hpp
-        game-states/menu/menu.hpp)
+        game-states/menu/menu.hpp views/view.hpp views/base.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}
