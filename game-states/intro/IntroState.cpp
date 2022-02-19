@@ -4,14 +4,18 @@
 
 #include <SFML/Graphics.hpp>
 #include "../StateManager.cpp"
+#include "../../views/Button.cpp"
 
 namespace zofia {
     class IntroState final : public BaseState {
+        private:
+          Button m_button;
         public:
           IntroState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
-                  : BaseState(machine, window, replace) {
-              LOG_INFO("BlankState is created");
-          };
+                  : BaseState(machine, window, replace),
+                    m_button(window, "Hello world", Position(0, 0), Size(300, 400)) {
+              LOG_INFO("IntroState is created");
+          }
 
           virtual ~IntroState() = default;
 
@@ -38,6 +42,7 @@ namespace zofia {
 
           void draw() override {
               m_window.clear(sf::Color::Black);
+              m_button.draw();
               m_window.display();
           }
     };

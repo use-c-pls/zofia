@@ -23,7 +23,7 @@ void zofia::Application::run(const std::string &configPath = zofia::DEFAULT_CONF
     zofia::Config config(configPath);
     zofia::Game game(config);
 
-    game.runExample();
+    game.run();
 }
 
 #endif

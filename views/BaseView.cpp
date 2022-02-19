@@ -5,41 +5,47 @@
 #ifndef ZOFIA_BASEVIEW_CPP
 #define ZOFIA_BASEVIEW_CPP
 
+#include "../core/logging/logging.hpp"
 #include "../entities/base.hpp"
 
+#include <utility>
 #include <vector>
 
-namespace zofia{
-    class BaseViewContext{
+namespace zofia {
+    class BaseViewContext {
 
     };
+
     template<typename BaseViewContext>
-    class BaseView{
+    class BaseView {
         private:
-          std::vector<std::unique_ptr<zofia::Entity>> m_entities;
-//          std::vector<Entity<EntityContext>*> m_entities;
+          std::string m_name{};
         protected:
-          void addEntity(Entity entity){
-              auto x = make_unique<Entity>(entity);
-              this->m_entities.push(x);
+          std::vector<Entity *> m_entities;
+
+          void addEntity(Entity *entity) {
+              this->m_entities.push_back(entity);
           }
-          template<typename T, typename... Args>
-          std::unique_ptr<T> make_unique(Args &&... args) {
-              return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-          }
+
         public:
-          BaseView();
-          ~BaseView(){
-              while(!this->m_entities.empty()){
-                  this->m_entities.pop_back();
-              }
-          }
+          BaseView() = default;
 
+          BaseView(std::string name) : m_name(std::move(name)) {};
 
+          ~BaseView();
 
           virtual void draw() = 0;
 
           virtual void update(BaseViewContext &context) = 0;
     };
+
 }
+
+
+template<typename BaseViewContext>
+zofia::BaseView<BaseViewContext>::~BaseView() {
+    LOG_INFO("Destroying views `{}`", m_name);
+    m_entities.clear();
+}
+
 #endif

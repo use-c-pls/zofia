@@ -11,6 +11,8 @@ namespace zofia {
           int m_xAxis{0};
           int m_yAxis{0};
         public:
+          explicit Position() = default;
+
           Position(int x, int y) : m_xAxis(x), m_yAxis(y) {}
 
           int getXAxis() const{

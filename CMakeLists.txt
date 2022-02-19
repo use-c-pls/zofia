@@ -4,10 +4,10 @@ project(zofia)
 set(CMAKE_CXX_STANDARD 11)
 
 #Specific 32 or 64 system
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     # 64 bits
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m64")
-endif()
+endif ()
 
 #Specific compiler options - set C++11 flag for g++ and clang
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -51,7 +51,7 @@ set(GAME_SOURCE
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp core/Position.cpp views/Button.cpp views/BaseView.cpp core/Color.cpp)
+        entities/EntityContext.cpp core/Position.cpp views/Button.cpp views/BaseView.cpp core/Color.cpp core/Util.cpp)
 
 set(GAME_HEADER
         core/config/config.hpp

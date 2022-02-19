@@ -9,7 +9,7 @@
 
 #include "../core/Size.cpp"
 #include "../core/Position.cpp"
-#include "../core/logging/logging.hpp"
+#include "../core/Util.cpp"
 
 #include "../entities/base.hpp"
 
@@ -21,33 +21,42 @@ namespace zofia {
           Size m_size;
           Position m_position;
           sf::Color m_color;
-          explicit RectangleContext(Size &size, Position &position,sf::Color &color) : m_size(size), m_position(position),m_color(color) {}
+
+
+          explicit RectangleContext(Size &size, Position &position, sf::Color &color)
+                  : m_size(size), m_position(position), m_color(color) {}
 
           explicit RectangleContext(Size &size, Position &position) : m_size(size), m_position(position) {}
 
+          explicit RectangleContext() = default;
+
           virtual ~RectangleContext() = default;
 
-          Size getSize() const{
+          Size getSize() const {
               return this->m_size;
           }
 
-          Position getPosition() const{
+          Position getPosition() const {
               return this->m_position;
           }
 
-          sf::Color getColor() const{
+          sf::Color getColor() const {
               return this->m_color;
           }
     };
 
-    class Rectangle : public Entity<RectangleContext> {
+    class Rectangle : public Entity {
         private:
           sf::Texture m_texture;
           sf::Sprite m_sprite;
           Size m_size;
           Position m_position;
           sf::IntRect m_rect;
+
           sf::Texture createTexture(std::string path);
+
+          template<typename E>
+          RectangleContext cast(E &context);
 
         public:
 
@@ -65,7 +74,7 @@ namespace zofia {
                   : m_size(size),
                     m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
                     m_position(startPosition), Entity(window) {
-              this->m_texture.create(size.getWidth(),size.getHeight());
+              this->m_texture.create(size.getWidth(), size.getHeight());
               this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
           }
 
@@ -78,8 +87,8 @@ namespace zofia {
 
           void draw() override;
 
-          void update(RectangleContext &context) override;
-
+          template<typename E>
+          void update(E &context);
 
           Size getSize() const {
               return this->m_size;
@@ -89,10 +98,9 @@ namespace zofia {
               return this->m_position;
           }
 
-          sf::Color getColor() const{
+          sf::Color getColor() const {
               return this->m_sprite.getColor();
           }
-
     };
 }
 
@@ -116,22 +124,29 @@ void zofia::Rectangle::draw() {
     this->m_window.draw(this->m_sprite);
 }
 
-void zofia::Rectangle::update(RectangleContext &context) {
-    if(m_sprite.getColor() != context.getColor()){
+template<typename E>
+void zofia::Rectangle::update(E &c) {
+    RectangleContext context = cast(c);
+    if (m_sprite.getColor() != context.getColor()) {
         this->m_sprite.setColor(context.getColor());
     }
-    if(this->m_rect.width != context.getSize().getWidth()){
+    if (this->m_rect.width != context.getSize().getWidth()) {
         this->m_rect.width = context.getSize().getWidth();
     }
-    if(this->m_rect.height != context.getSize().getHeight()){
+    if (this->m_rect.height != context.getSize().getHeight()) {
         this->m_rect.height = context.getSize().getHeight();
     }
-    if(this->m_rect.left != context.getPosition().getXAxis()){
+    if (this->m_rect.left != context.getPosition().getXAxis()) {
         this->m_rect.left = context.getPosition().getXAxis();
     }
-    if(this->m_rect.top != context.getPosition().getYAxis()){
+    if (this->m_rect.top != context.getPosition().getYAxis()) {
         this->m_rect.top = context.getPosition().getYAxis();
     }
+}
+
+template<typename E>
+zofia::RectangleContext zofia::Rectangle::cast(E &context) {
+    return static_cast<RectangleContext>(context);
 }
 
 #endif

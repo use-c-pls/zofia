@@ -9,15 +9,12 @@
 
 #define ZOFIA zofia::
 namespace zofia {
-    template<class EntityContext>
     class Entity {
         protected:
           sf::RenderWindow &m_window;
         public:
           explicit Entity(sf::RenderWindow &window) : m_window{window} {
           }
-
-          virtual void update(EntityContext &context) = 0;
 
           virtual void draw() = 0;
     };

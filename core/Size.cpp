@@ -8,6 +8,8 @@ namespace zofia {
           int m_width{0};
           int m_height{0};
         public:
+          explicit Size() = default;
+
           Size(int width, int height) : m_width(width), m_height(height) {}
 
           int getWidth() const {

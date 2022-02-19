@@ -17,7 +17,6 @@ namespace zofia {
           StateManager m_stateMachine;
           sf::RenderWindow m_window;
 
-
           void startEngine();
 
         public:

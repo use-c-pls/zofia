@@ -3,7 +3,6 @@
 #define ZOFIA_MENU_SCENE_CPP__
 
 #include <SFML/Graphics.hpp>
-
 namespace zofia {
     class MenuState final : public BaseState {
         private:
@@ -43,7 +42,7 @@ namespace zofia {
           void draw() override {
               m_window.clear(sf::Color::Black);
               m_background.draw();
-              //m_typo.draw();
+              m_typo.draw();
               m_window.display();
           }
     };

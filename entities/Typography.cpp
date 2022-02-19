@@ -18,25 +18,27 @@ namespace zofia {
     class TypographyContext : public EntityContext {
         public:
           std::string m_text;
-          int m_textSize;
+          int m_textSize{};
 
-          explicit TypographyContext(std::string text, int textSize) : m_text(text), m_textSize(textSize) {}
+          explicit TypographyContext(std::string text, int textSize) : m_text(std::move(text)), m_textSize(textSize) {}
 
-          explicit TypographyContext(){}
+          explicit TypographyContext() = default;
 
-          explicit TypographyContext(std::string text) : m_text(text){}
+          explicit TypographyContext(std::string text) : m_text(std::move(text)) {}
 
-          explicit TypographyContext(int textSize) : m_textSize(textSize){}
+          explicit TypographyContext(int textSize) : m_textSize(textSize) {}
 
           virtual ~TypographyContext() = default;
-
-
     };
 
-    class Typography : public Entity<TypographyContext> {
+    class Typography : public Entity {
         private:
           sf::Text m_text;
           sf::Font m_font;
+
+          template<typename E>
+          TypographyContext cast(E &context);
+
         public:
           explicit Typography(sf::RenderWindow &window, std::string &fontPath) : Entity(window) {
               this->initFont(fontPath);
@@ -52,17 +54,22 @@ namespace zofia {
 
           void draw() override;
 
-          void update(TypographyContext &context) override;
-
-          sf::Text getText() const{
-                return this->m_text;
-          }
+          template<typename E>
+          void update(E &context);
 
         private:
           sf::Text createText(const std::string &message);
 
           void initFont(std::string fontPath);
+
     };
+}
+
+template<typename E>
+void zofia::Typography::update(E &context) {
+    TypographyContext casted = cast(context);
+
+    LOG_DEBUG(casted.m_text);
 }
 
 zofia::Typography::~Typography() {
@@ -89,9 +96,9 @@ void zofia::Typography::initFont(std::string fontPath) {
     }
 }
 
-void zofia::Typography::update(TypographyContext &context) {
-    this->m_text.setString(context.m_text);
-    this->m_text.setCharacterSize(context.m_textSize);
+template<typename E>
+zofia::TypographyContext zofia::Typography::cast(E &context) {
+    return static_cast<TypographyContext>(context);
 }
 
 #endif

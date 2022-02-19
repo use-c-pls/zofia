@@ -6,7 +6,6 @@
 #define ZOFIA_BUTTON_CPP
 
 #include "../entities/full.hpp"
-
 #include "base.hpp"
 
 namespace zofia {
@@ -21,7 +20,7 @@ namespace zofia {
               return this->m_str;
           }
 
-          sf::Color getColor() const{
+          sf::Color getColor() const {
               return this->m_color;
           }
 
@@ -29,24 +28,24 @@ namespace zofia {
 
     class Button : public BaseView<ButtonContext> {
         private:
-          Typography m_typo;
-          Rectangle m_rect;
+          Typography *getTypography();
+
+          Rectangle *getRectangle();
+
         public:
-
-
-          explicit Button(sf::RenderWindow &window,std::string text,Position position,Size size) : BaseView<ButtonContext>(){
-              Typography typography(window);
-              Rectangle rectangle(window,size,position);
+          explicit Button(sf::RenderWindow &window, std::string str, Position position, Size size)
+                  : BaseView<ButtonContext>("button") {
+              auto *typography = new Typography(window);
+              auto *rectangle = new Rectangle(window, size, position);
               this->addEntity(typography);
               this->addEntity(rectangle);
+
+              setText(str);
           };
 
           virtual ~Button() = default;
 
-          void setText(Typography &typo);
-
           void setText(std::string &str);
-
 
           void draw() override;
 
@@ -55,40 +54,26 @@ namespace zofia {
 }
 
 void zofia::Button::draw() {
-    this->m_rect.draw();
+    TypographyContext context("newStr");
 
+    this->getTypography()->update(context);
+}
+
+zofia::Typography *zofia::Button::getTypography() {
+    return dynamic_cast<Typography *>(m_entities[0]);
+}
+
+zofia::Rectangle *zofia::Button::getRectangle() {
+    return dynamic_cast<Rectangle *>(m_entities[1]);
 }
 
 void zofia::Button::update(ButtonContext &context) {
-    //setIntData(m_typo,);
-    RectangleContext rectContext(context.)
-    this->m_rect.update()
+
 }
 
-template<typename T>
-void zofia::Button::setIntData(T &var, int data) {
-    if (data > 0) {//constraint
-        var = data;
-    }
-    //Do nothing
+void zofia::Button::setText(std::string &str) {
+    TypographyContext typographyContext(str);
+    getTypography()->update(typographyContext);
 }
-
-template<typename T>
-void zofia::Button::setStringData(T &var, std::string data) {
-    if (data.length() > 0) {
-        var = data;
-    }
-    //do nothing
-}
-//
-//void zofia::Button::setText(std::string &str) {
-//    TypographyContext context(str);
-//    m_typo.update(context);
-//}
-//
-//void zofia::Button::setText(Typography &typo) {
-//    TypographyContext context(typo.getText().getString());
-//    m_typo.update(context);
-//}
 
 #endif
