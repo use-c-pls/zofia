@@ -27,6 +27,6 @@ build_type=Release
 3. Delta time: https://drewcampbell92.medium.com/understanding-delta-time-b53bf4781a03#:~:text=Delta%20time%2C%20or%20also%20referred,drawn%20and%20the%20current%20frame
 4. JPEG: https://www.youtube.com/watch?v=Kv1Hiv3ox8I
 5. Center Text: https://github.com/eXpl0it3r/Examples/blob/master/SFML/CenterText.cpp
-6. Origin & Position: https://stackoverflow.com/questions/9108135/difference-between-origin-and-position-arguments-in-spritebatch-drawstring/9109122# ![position vs origin](/media/origin_position.png]
+6. Origin & Position: https://stackoverflow.com/questions/9108135/difference-between-origin-and-position-arguments-in-spritebatch-drawstring/9109122# ![position vs origin](/media/origin_position.png "posvsori"]
 
 
