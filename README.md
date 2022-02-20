@@ -28,6 +28,7 @@ build_type=Release
 4. JPEG: https://www.youtube.com/watch?v=Kv1Hiv3ox8I
 5. Center Text: https://github.com/eXpl0it3r/Examples/blob/master/SFML/CenterText.cpp
 6. Origin & Position: https://stackoverflow.com/questions/9108135/difference-between-origin-and-position-arguments-in-spritebatch-drawstring/9109122#
+
 ![position vs origin](media/origin_position.png "posvsori")
 
 
