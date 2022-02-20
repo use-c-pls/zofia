@@ -11,10 +11,13 @@
 namespace zofia {
     class Entity {
         protected:
+
           sf::RenderWindow &m_window;
         public:
           explicit Entity(sf::RenderWindow &window) : m_window{window} {
           }
+
+          Entity() = default;
 
           virtual void draw() = 0;
     };

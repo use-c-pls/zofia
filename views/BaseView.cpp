@@ -9,34 +9,35 @@
 #include "../entities/base.hpp"
 
 #include <utility>
-#include <vector>
+#include <map>
 
 namespace zofia {
-    class BaseViewContext {
+    class BaseViewContext{
 
     };
 
-    template<typename BaseViewContext>
-    class BaseView {
+    template<typename T>
+    class BaseView{
         private:
-          std::string m_name{};
+          std::string m_id{};
         protected:
-          std::vector<Entity *> m_entities;
-
-          void addEntity(Entity *entity) {
-              this->m_entities.push_back(entity);
+//          std::vector<Entity *> m_entities;
+            std::map<std::string,Entity*> m_entities;
+          void addEntity(std::string key,Entity *entity) {
+//              this->m_entities.push_back(entity);
+                this->m_entities.insert(std::pair<std::string,Entity*>(key,entity));
           }
 
         public:
           BaseView() = default;
 
-          BaseView(std::string name) : m_name(std::move(name)) {};
+          BaseView(std::string id) : m_id(std::move(id)){};
 
           ~BaseView();
 
           virtual void draw() = 0;
 
-          virtual void update(BaseViewContext &context) = 0;
+          virtual void update(T &context) = 0;
     };
 
 }
@@ -44,7 +45,7 @@ namespace zofia {
 
 template<typename BaseViewContext>
 zofia::BaseView<BaseViewContext>::~BaseView() {
-    LOG_INFO("Destroying views `{}`", m_name);
+    LOG_INFO("Destroying views `{}`", m_id);
     m_entities.clear();
 }
 

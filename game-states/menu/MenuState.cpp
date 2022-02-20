@@ -6,14 +6,15 @@
 namespace zofia {
     class MenuState final : public BaseState {
         private:
-          Typography m_typo;
           Rectangle m_background;
+          Button m_button;
         public:
           MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
-                  : BaseState(machine, window, replace), m_typo(window),
+                  : BaseState(machine, window, replace), m_button(window,"Start",Position(0,0),Size(560,250)),
                     m_background(window, "resources/backgrounds/menu_background.png",
                                  Size(1920, 1080), Position(0, 0)) {
               LOG_INFO("MenuState is created");
+              m_button.center(m_background);
           };
 
           virtual ~MenuState() = default;
@@ -36,13 +37,14 @@ namespace zofia {
           }
 
           void update() override {
-              //LOG_DEBUG("MenuState update");
+//              LOG_DEBUG("MenuState update")
+
           }
 
           void draw() override {
               m_window.clear(sf::Color::Black);
               m_background.draw();
-              m_typo.draw();
+              m_button.draw();
               m_window.display();
           }
     };
