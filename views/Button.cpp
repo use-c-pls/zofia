@@ -59,9 +59,6 @@ namespace zofia {
 }
 
 void zofia::Button::draw() {
-//    TypographyContext context("newStr");
-//
-//    this->getTypography()->update(context);
     getTypography()->draw();
     getRectangle()->draw();
 }

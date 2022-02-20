@@ -6,7 +6,6 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <iostream>
 
 #include "../core/Size.cpp"
 #include "../core/Position.cpp"
@@ -134,32 +133,14 @@ sf::Texture zofia::Rectangle::createTexture(std::string path) {
     return texture;
 }
 
-void center( sf::Sprite &sprite) {
-   // std::cout << "Center" << std::endl;
-    sprite.setOrigin(sprite.getLocalBounds().width/ 2 , sprite.getLocalBounds().height / 2);
-    sprite.setPosition(sf::Vector2f(1920/2.0f,1080/2.0f));
-}
-
 void zofia::Rectangle::draw() {
-    //sf::FloatRect textRect = text.getLocalBounds();
-//    this->m_sprite.setOrigin(this->m_rect.left + this->m_rect.width/2.0f,
-//                             this->m_rect.top  + this->m_rect.height/2.0f);
-//    this->m_sprite.setPosition(sf::Vector2f(1920/2.0f,1080/2.0f));
     this->m_window.draw(this->m_sprite);
 }
 
 template<typename E>
 void zofia::Rectangle::update(E &c) {
     RectangleContext context = cast(c);
-//    if (m_sprite.getColor() != context.getColor()) {
-//        this->m_sprite.setColor(context.getColor());
-//    }
-//    if (this->m_rect.width != context.getSize().getWidth()) {
-//        this->m_rect.width = context.getSize().getWidth();
-//    }
-//    if (this->m_rect.height != context.getSize().getHeight()) {
-//        this->m_rect.height = context.getSize().getHeight();
-//    }
+
     this->m_position = context.getPosition();
     this->m_sprite.setOrigin(context.getOrigin().getXAxis(),context.getOrigin().getYAxis());
     this->m_sprite.setPosition(context.getPosition().getXAxis(),context.getPosition().getYAxis());
