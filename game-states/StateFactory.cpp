@@ -3,8 +3,9 @@
 #define ZOFIA_STATE_FACTORY_CPP__
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "StateManager.cpp"
 #include "../core/Util.cpp"
+
+#include "StateManager.cpp"
 
 namespace zofia {
     class StateFactory {

@@ -33,6 +33,9 @@ set(GAME_SOURCE
         core/Game.cpp
         core/Greeting.cpp
         core/Size.cpp
+        core/Position.cpp
+        core/Color.cpp
+        core/Util.cpp
 
         core/config/Config.cpp
         core/config/Constant.cpp
@@ -40,18 +43,26 @@ set(GAME_SOURCE
         core/logging/BaseLogger.cpp
         core/logging/Logger.cpp
 
-
         game-states/BaseState.cpp
         game-states/ExampleState.cpp
         game-states/StateFactory.cpp
         game-states/StateManager.cpp
 
         game-states/intro/IntroState.cpp
+        game-states/gameplay/GameState.cpp
 
         entities/Entity.cpp
         entities/Rectangle.cpp
         entities/Typography.cpp
-        entities/EntityContext.cpp core/Position.cpp views/Button.cpp views/BaseView.cpp core/Color.cpp core/Util.cpp)
+        entities/EntityContext.cpp
+
+        views/Button.cpp
+        views/BaseView.cpp
+
+        world/Object.cpp
+        world/DrawableObject.cpp
+        world/HitBoxObject.cpp
+        world/spaceship/SpaceShip.cpp)
 
 set(GAME_HEADER
         core/config/config.hpp
@@ -65,7 +76,14 @@ set(GAME_HEADER
 
         game-states/base.hpp
         game-states/intro/intro.hpp
-        game-states/menu/menu.hpp views/view.hpp views/base.hpp)
+        game-states/menu/menu.hpp
+        game-states/gameplay/gameplay.hpp
+        game-states/full.hpp
+
+        views/base.hpp
+        views/view.hpp
+
+        world/world.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}

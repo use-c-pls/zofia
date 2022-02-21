@@ -5,9 +5,7 @@
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "../game-states/base.hpp"
-#include "../game-states/intro/intro.hpp"
-#include "../game-states/menu/menu.hpp"
+#include "../game-states/full.hpp"
 
 #include "Size.cpp"
 
@@ -60,7 +58,7 @@ void zofia::Game::runWithState(std::unique_ptr<BaseState> state) {
 }
 
 void zofia::Game::runExample() {
-    runWithState(zofia::StateFactory::build<MenuState>(m_stateMachine, m_window, true));
+    runWithState(zofia::StateFactory::build<GameState>(m_stateMachine, m_window, true));
 }
 
 void zofia::Game::run() {

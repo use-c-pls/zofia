@@ -56,7 +56,7 @@ namespace zofia {
           sf::Sprite m_sprite;
           Size m_size;
           Position m_position;
-          sf::IntRect m_rect;
+          sf::FloatRect m_rect;
 
           sf::Texture createTexture(std::string path);
 
@@ -123,7 +123,7 @@ sf::Texture zofia::Rectangle::createTexture(std::string path) {
     sf::Clock clock;//start time
     clock.restart();
 
-    if (!texture.loadFromFile(path, this->m_rect)) {
+    if (!texture.loadFromFile(path)) {
         LOG_ERROR("Not found background at `{}`", path);
     }
     sf::Time start = clock.getElapsedTime();
