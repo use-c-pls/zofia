@@ -12,26 +12,25 @@
 #include <map>
 
 namespace zofia {
-    class BaseViewContext{
+    class BaseViewContext {
 
     };
 
     template<typename T>
-    class BaseView{
+    class BaseView {
         private:
           std::string m_id{};
         protected:
-//          std::vector<Entity *> m_entities;
-            std::map<std::string,Entity*> m_entities;
-          void addEntity(std::string key,Entity *entity) {
-//              this->m_entities.push_back(entity);
-                this->m_entities.insert(std::pair<std::string,Entity*>(key,entity));
+          std::map<std::string, Entity *> m_entities;
+
+          void addEntity(std::string key, Entity *entity) {
+              this->m_entities.insert(std::pair<std::string, Entity *>(key, entity));
           }
 
         public:
           BaseView() = default;
 
-          BaseView(std::string id) : m_id(std::move(id)){};
+          BaseView(std::string id) : m_id(std::move(id)) {};
 
           ~BaseView();
 
