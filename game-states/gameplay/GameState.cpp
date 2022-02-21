@@ -11,11 +11,29 @@ namespace zofia {
 
     class GameState : public BaseState {
         private:
-          SpaceShip m_player;
+          SpaceShip m_player1;
+          SpaceShip m_player2;
+          SpaceShip m_player3;
         public:
           GameState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace) {
               LOG_INFO("GameState is created");
+              m_player1.updateColor(sf::Color::Red);
+              m_player2.updateColor(sf::Color::Green);
+              m_player3.updateColor(sf::Color::Yellow);
+
+              auto lb1 = m_player1.getHitBoxLocalBound();
+              auto lb2 = m_player2.getHitBoxLocalBound();
+              auto lb3 = m_player3.getHitBoxLocalBound();
+
+              m_player1.updateHitBoxOrigin(lb1.width / 2, 0);
+              m_player1.updateHitBoxPos(1920 / 2, 1080 / 2 - 200);
+
+              m_player2.updateHitBoxOrigin(lb2.width / 2, 0);
+              m_player2.updateHitBoxPos(1920 / 2, 1080 / 2  - 100);
+
+              m_player3.updateHitBoxOrigin(lb3.width / 2, 0);
+              m_player3.updateHitBoxPos(1920 / 2, 1080 / 2);
           }
 
           virtual ~GameState() = default;
@@ -38,12 +56,14 @@ namespace zofia {
           }
 
           void update() override {
-              m_player.randomHitBox();
+//              m_player.randomHitBox();
           }
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_player.drawHitBox(m_window);
+              m_player1.drawHitBox(m_window);
+              m_player2.drawHitBox(m_window);
+              m_player3.drawHitBox(m_window);
               m_window.display();
           }
     };

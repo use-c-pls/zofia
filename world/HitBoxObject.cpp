@@ -21,6 +21,18 @@ namespace zofia {
               m_rect.setSize(sf::Vector2f(w, h));
           }
 
+          sf::FloatRect getLocalBound() {
+              return m_rect.getLocalBounds();
+          }
+
+          void setOrigin(float x, float y) {
+              m_rect.setOrigin(x, y);
+          }
+
+          void setColor(sf::Color color) {
+              m_rect.setOutlineColor(color);
+          }
+
           void setPosition(const Position &pos) {
               float x = pos.getXAxis();
               float y = pos.getYAxis();

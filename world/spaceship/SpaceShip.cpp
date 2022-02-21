@@ -7,7 +7,7 @@
 
 namespace zofia {
     class SpaceShip { //: public DrawableObject
-          using HBox = HitBoxObject<200, 200, 200, 200>;
+          using HBox = HitBoxObject<302, 76, 0, 0>;
         private:
           HBox m_hitBox{};
         public:
@@ -19,8 +19,20 @@ namespace zofia {
               return m_hitBox;
           }
 
+          sf::FloatRect getHitBoxLocalBound() {
+              return m_hitBox.getLocalBound();
+          }
+
           void updateHitBoxPos(float x, float y) {
               m_hitBox.setPosition(x, y);
+          }
+
+          void updateColor(sf::Color color) {
+              m_hitBox.setColor(color);
+          }
+
+          void updateHitBoxOrigin(float x, float y) {
+              m_hitBox.setOrigin(x, y);
           }
 
           void randomHitBox() {
