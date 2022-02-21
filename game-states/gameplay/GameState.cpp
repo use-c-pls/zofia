@@ -18,6 +18,14 @@ namespace zofia {
           GameState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace) {
               LOG_INFO("GameState is created");
+
+              float windowWidth = 1920;
+              float windowHeight = 1080;
+
+              float marginTopForBtn1 = 200;
+              float marginTopForBtn2 = 100;
+              float marginTopForBtn3 = 0;
+
               m_player1.updateColor(sf::Color::Red);
               m_player2.updateColor(sf::Color::Green);
               m_player3.updateColor(sf::Color::Yellow);
@@ -27,13 +35,13 @@ namespace zofia {
               auto lb3 = m_player3.getHitBoxLocalBound();
 
               m_player1.updateHitBoxOrigin(lb1.width / 2, 0);
-              m_player1.updateHitBoxPos(1920 / 2, 1080 / 2 - 200);
+              m_player1.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn1);
 
               m_player2.updateHitBoxOrigin(lb2.width / 2, 0);
-              m_player2.updateHitBoxPos(1920 / 2, 1080 / 2  - 100);
+              m_player2.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn2);
 
               m_player3.updateHitBoxOrigin(lb3.width / 2, 0);
-              m_player3.updateHitBoxPos(1920 / 2, 1080 / 2);
+              m_player3.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn3);
           }
 
           virtual ~GameState() = default;
