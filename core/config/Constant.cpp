@@ -9,7 +9,7 @@
 namespace zofia {
     static std::string TITLE = "zofia";
     const std::string DEFAULT_CONFIG_PATH = "resources/configs/config.json";
-    const std::string DEFAULT_FONT_PATH = "resources/fonts/Marker_Felt.ttf";
+    const std::string DEFAULT_FONT = "Marker_Felt";
 
     static const int DEFAULT_GAME_WIDTH = 1920;
     static const int DEFAULT_GAME_HEIGHT = 1080;

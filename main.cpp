@@ -1,4 +1,4 @@
-#include "include/core/core.hpp"
+#include "include/ZOFIA"
 
 int main() {
     zofia::Greeting::greeting("Luke");

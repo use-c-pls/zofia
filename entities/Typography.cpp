@@ -7,8 +7,8 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 
+#include "../include/core/resources.hpp"
 #include "../include/core/config.hpp"
-#include "../include/core/logging.hpp"
 
 #include "Entity.cpp"
 #include "EntityContext.cpp"
@@ -40,13 +40,13 @@ namespace zofia {
           TypographyContext cast(E &context);
 
         public:
-          explicit Typography(sf::RenderWindow &window, std::string &fontPath) : Entity(window) {
-              this->initFont(fontPath);
+          explicit Typography(sf::RenderWindow &window, std::string &fontName) : Entity(window) {
+              this->m_font = ResourceHolder::get().fonts().get(fontName);
               this->m_text = createText("");
           };
 
           explicit Typography(sf::RenderWindow &window) : Entity(window) {
-              this->initFont(DEFAULT_FONT_PATH);
+              this->m_font = ResourceHolder::get().fonts().get(DEFAULT_FONT);
               this->m_text = createText("");
           }
 
@@ -59,9 +59,6 @@ namespace zofia {
 
         private:
           sf::Text createText(const std::string &message);
-
-          void initFont(std::string fontPath);
-
     };
 }
 
@@ -69,7 +66,8 @@ template<typename E>
 void zofia::Typography::update(E &context) {
     TypographyContext casted = cast(context);
 
-    LOG_DEBUG(casted.m_text);
+    m_text.setString(casted.m_text);
+    m_text.setCharacterSize(casted.m_textSize);
 }
 
 zofia::Typography::~Typography() {
@@ -88,12 +86,6 @@ sf::Text zofia::Typography::createText(const std::string &message) {
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
     text.setFont(m_font);
     return text;
-}
-
-void zofia::Typography::initFont(std::string fontPath) {
-    if (!m_font.loadFromFile(fontPath)) {
-        LOG_ERROR("Not found any font at `{}`", fontPath);
-    }
 }
 
 template<typename E>

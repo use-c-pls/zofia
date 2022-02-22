@@ -1,0 +1,8 @@
+/* Author @daoluke */
+#ifndef ZOFIA_APP_HPP
+#define ZOFIA_APP_HPP
+
+#include "../core/Greeting.cpp"
+#include "../core/Application.cpp"
+
+#endif

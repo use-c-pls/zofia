@@ -56,7 +56,6 @@ namespace zofia {
           sf::Sprite m_sprite;
           Size m_size;
           Position m_position;
-          sf::FloatRect m_rect;
 
           sf::Texture createTexture(std::string path);
 
@@ -64,29 +63,20 @@ namespace zofia {
           RectangleContext cast(E &context);
 
         public:
-
-          explicit Rectangle(sf::RenderWindow &window, const std::string &path, const Size &size,
+          explicit Rectangle(sf::RenderWindow &window, const std::string &pathBackground, const Size &size,
                              const Position &startPosition)
                   : m_size(size),
-                    m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
                     m_position(startPosition), Entity(window) {
-              this->m_texture = createTexture(path);//tie texture to rect in createTexture
-              this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
+              this->m_texture = createTexture(pathBackground);
+              this->m_sprite.setTexture(this->m_texture);
           }
 
-          explicit Rectangle(sf::RenderWindow &window, const Size &size,
-                             const Position &startPosition)
+          explicit Rectangle(sf::RenderWindow &window, const Size &size, const Position &startPosition)
                   : m_size(size),
-                    m_rect(startPosition.getXAxis(), startPosition.getYAxis(), size.getWidth(), size.getHeight()),
                     m_position(startPosition), Entity(window) {
               this->m_texture.create(size.getWidth(), size.getHeight());
-              this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
+              this->m_sprite.setTexture(this->m_texture);
           }
-
-          Rectangle(sf::RenderWindow &window, const std::string &path,
-                    const int &width, const int &height,
-                    const int &x, const int &y)
-                  : Rectangle(window, path, Size(width, height), Position(x, y)) {}
 
           virtual ~Rectangle() = default;
 
@@ -141,9 +131,9 @@ template<typename E>
 void zofia::Rectangle::update(E &c) {
     RectangleContext context = cast(c);
 
-    this->m_position = context.getPosition();
-    this->m_sprite.setOrigin(context.getOrigin().getXAxis(),context.getOrigin().getYAxis());
-    this->m_sprite.setPosition(context.getPosition().getXAxis(),context.getPosition().getYAxis());
+    this->m_position = context.m_position;
+    this->m_sprite.setOrigin(context.m_origin.getXAxis(), context.m_origin.getYAxis());
+    this->m_sprite.setPosition(context.m_position.getXAxis(), context.m_position.getYAxis());
 }
 
 template<typename E>

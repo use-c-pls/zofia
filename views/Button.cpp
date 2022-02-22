@@ -10,20 +10,11 @@
 
 namespace zofia {
     class ButtonContext : public BaseViewContext {
-        private:
+        public:
           std::string m_str;
           sf::Color m_color;
           Position m_position;
           Size m_size;
-        public:
-          std::string getText() const {
-              return this->m_str;
-          }
-
-          sf::Color getColor() const {
-              return this->m_color;
-          }
-
     };
 
     class Button : public BaseView<ButtonContext> {
@@ -36,13 +27,11 @@ namespace zofia {
           explicit Button(sf::RenderWindow &window, std::string str, Position position, Size size)
                   : BaseView<ButtonContext>("button") {
               auto *typography = new Typography(window);
-              auto *rectangle = new Rectangle(window,"resources/views/button.png", size, position);
-              this->addEntity("typo",typography);
-              this->addEntity("rect",rectangle);
-//              RectangleContext rectangleContext;
-//              rectangleContext.m_color = sf::Color::Red;
-//              rectangleContext.m_position = Position(300,0);
-//              getRectangle()->update(rectangleContext);
+              auto *rectangle = new Rectangle(window, "resources/views/button.png", size, position);
+
+              this->addEntity("typo", typography);
+              this->addEntity("rect", rectangle);
+
               setText(str);
           };
 
@@ -88,7 +77,7 @@ void zofia::Button::center(Rectangle &rect) {
 
     RectangleContext context;
     context.m_origin = Position(internalRect.width / 2, internalRect.height / 2);
-    context.m_position = Position(sizeRect.getWidth()/ 2,sizeRect.getHeight()/2);
+    context.m_position = Position(sizeRect.getWidth() / 2, sizeRect.getHeight() / 2);
 
     getRectangle()->update(context);
 }

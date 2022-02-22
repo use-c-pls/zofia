@@ -43,6 +43,9 @@ set(GAME_SOURCE
         core/logging/BaseLogger.cpp
         core/logging/Logger.cpp
 
+        core/resource/ResourceHolder.cpp
+        core/resource/ResourceManager.cpp
+
         game-states/BaseState.cpp
         game-states/ExampleState.cpp
         game-states/StateFactory.cpp
@@ -65,11 +68,12 @@ set(GAME_SOURCE
         world/spaceship/SpaceShip.cpp)
 
 set(GAME_HEADER
-        include/core/config.hpp
+        include/ZOFIA
 
         include/core/core.hpp
-
+        include/core/config.hpp
         include/core/logging.hpp
+        include/core/resources.hpp
 
         include/entities/base.hpp
         include/entities/full.hpp
