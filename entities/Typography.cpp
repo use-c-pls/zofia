@@ -50,7 +50,7 @@ namespace zofia {
               this->m_text = createText("");
           }
 
-          virtual ~Typography();
+          ~Typography() override;
 
           void draw() override;
 

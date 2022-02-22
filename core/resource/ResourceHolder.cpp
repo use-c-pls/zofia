@@ -44,6 +44,13 @@ namespace zofia {
           ResourceManager<sf::SoundBuffer> sounds() {
               return m_sounds;
           }
+
+          ~ResourceHolder() {
+              fonts().clear();
+              backgrounds().clear();
+              views().clear();
+              sounds().clear();
+          }
     };
 }
 

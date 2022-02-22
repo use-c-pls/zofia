@@ -16,6 +16,8 @@ namespace zofia {
           explicit Entity(sf::RenderWindow &window) : m_window{window} {
           }
 
+          virtual ~Entity() = default;
+
           virtual void draw() = 0;
     };
 }

@@ -17,6 +17,8 @@ namespace zofia {
           GameState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace) {
               LOG_INFO("GameState is created");
+              m_player1.updateColor(sf::Color::Red);
+              m_player2.updateColor(sf::Color::Green);
           }
 
           virtual ~GameState() = default;
@@ -39,8 +41,8 @@ namespace zofia {
           }
 
           void update() override {
-              m_player1.updateHitBoxPos(200, 200.0);
-              m_player2.updateHitBoxPos(251.f, 251.f);
+              m_player1.randomHitBox();
+              m_player2.randomHitBox();
 
               if (m_player1.isHit(m_player2)) {
                   std::stringstream log;

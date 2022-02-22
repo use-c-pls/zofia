@@ -24,11 +24,14 @@ namespace zofia {
                     m_extension(std::move(extension)) {
           }
 
+          virtual ~ResourceManager() = default;
+
           void add(const std::string &name) {
               Resource r;
               std::string fullFileName = getFullFileName(name);
               if (r.loadFromFile(fullFileName)) {
                   m_resources.insert(std::make_pair(name, r));
+                  return;
               }
               LOG_CRITICAL("Resource {} with name `{}` is not found", m_name, name);
           }
@@ -42,6 +45,17 @@ namespace zofia {
                   add(name);
               }
               return m_resources.at(name);
+          }
+
+          void remove(const std::string &name) {
+              if (exists(name)) {
+                  m_resources.erase(name);
+              }
+          }
+
+          void clear() {
+              LOG_INFO("Resource `{}` is destroying...", m_name);
+              m_resources.clear();
           }
 
           std::string getName() const {

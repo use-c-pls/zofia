@@ -30,7 +30,7 @@ namespace zofia {
         public:
           BaseView() = default;
 
-          BaseView(std::string id) : m_id(std::move(id)) {};
+          explicit BaseView(std::string id) : m_id(std::move(id)) {};
 
           ~BaseView();
 
@@ -45,6 +45,9 @@ namespace zofia {
 template<typename BaseViewContext>
 zofia::BaseView<BaseViewContext>::~BaseView() {
     LOG_INFO("Destroying views `{}`", m_id);
+    for (const auto& it : m_entities) {
+        delete (it.second);
+    }
     m_entities.clear();
 }
 
