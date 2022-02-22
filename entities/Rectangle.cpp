@@ -19,7 +19,26 @@ namespace zofia {
           Position m_position;
           Position m_origin;
           sf::Color m_color;
+          int m_marginTop{0};
+          int m_marginBottom{0};
+          int m_marginLeft{0};
+          int m_marginRight{0};
+        public:
+          int getMarginTop() const {
+              return m_marginTop;
+          }
 
+          int getMarginBottom() const {
+              return m_marginBottom;
+          }
+
+          int getMarginLeft() const {
+              return m_marginLeft;
+          }
+
+          int getMarginRight() const {
+              return m_marginRight;
+          }
 
           explicit RectangleContext(Size &size, Position &position, sf::Color &color)
                   : m_size(size), m_position(position), m_color(color) {}
@@ -38,21 +57,36 @@ namespace zofia {
               return this->m_position;
           }
 
-          sf::Color getColor() const {
+          sf::Color getColor() {
               return this->m_color;
           }
 
-          Position getOrigin() const{
+          Position getOrigin(){
               return this->m_origin;
           }
     };
 
     class Rectangle : public Entity {
+        public:
+          sf::Texture &getTexture();
+
+          sf::Sprite &getSprite();
+
+          Size &getSize();
+
+          Position &getPosition();
+
+          sf::FloatRect &getRect();
+
         private:
           sf::Texture m_texture;
           sf::Sprite m_sprite;
           Size m_size;
           Position m_position;
+          int m_marginTop{0};
+          int m_marginBottom{0};
+          int m_marginLeft{0};
+          int m_marginRight{0};
 
           sf::Texture createTexture(std::string path);
 
@@ -64,15 +98,17 @@ namespace zofia {
                              const Position &startPosition)
                   : m_size(size),
                     m_position(startPosition), Entity(window) {
-              this->m_texture = createTexture(pathBackground);
-              this->m_sprite.setTexture(this->m_texture);
+              this->m_texture = createTexture(pathBackground);//tie texture to rect in createTexture
+              this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
+              this->m_sprite.setPosition(startPosition.getXAxis(),startPosition.getYAxis());
           }
 
           explicit Rectangle(sf::RenderWindow &window, const Size &size, const Position &startPosition)
                   : m_size(size),
                     m_position(startPosition), Entity(window) {
               this->m_texture.create(size.getWidth(), size.getHeight());
-              this->m_sprite.setTexture(this->m_texture);
+                            this->m_sprite.setTexture(this->m_texture);//tie rect to sprite
+                            this->m_sprite.setPosition(startPosition.getXAxis(),startPosition.getYAxis());
           }
 
           virtual ~Rectangle() = default;
@@ -81,14 +117,6 @@ namespace zofia {
 
           template<typename E>
           void update(E &context);
-
-          Size getSize() const {
-              return this->m_size;
-          }
-
-          Position getPosition() const {
-              return this->m_position;
-          }
 
           sf::Color getColor() const {
               return this->m_sprite.getColor();
@@ -100,6 +128,10 @@ namespace zofia {
 
           sf::FloatRect getGlobalBounds() const {
               return this->m_sprite.getGlobalBounds();
+          }
+
+          sf::Vector2f getOrigin(){
+              return this->m_sprite.getOrigin();
           }
     };
 }
@@ -128,14 +160,49 @@ template<typename E>
 void zofia::Rectangle::update(E &c) {
     RectangleContext context = cast(c);
 
-    this->m_position = context.m_position;
-    this->m_sprite.setOrigin(context.m_origin.getXAxis(), context.m_origin.getYAxis());
-    this->m_sprite.setPosition(context.m_position.getXAxis(), context.m_position.getYAxis());
+    int xPosition = 0;
+    int yPosition = 0;
+    if(context.m_marginTop != 0){
+        yPosition += context.m_marginTop;
+        m_marginTop = context.m_marginTop;
+    }
+    if(context.m_marginBottom != 0){
+        yPosition -= context.m_marginBottom;
+        m_marginBottom = context.m_marginBottom;
+    }
+    if(context.m_marginLeft!=0) {
+        xPosition -= context.m_marginLeft;
+        m_marginLeft = context.m_marginLeft;
+    }
+    if(context.m_marginRight != 0){
+        xPosition += context.m_marginRight;
+        m_marginRight = context.m_marginRight;
+    }
+    this->m_position = context.getPosition();
+    this->m_sprite.setOrigin(context.getOrigin().getXAxis(),context.getOrigin().getYAxis());
+    this->m_sprite.setPosition(context.getPosition().getXAxis()+xPosition,context.getPosition().getYAxis()+yPosition);
+
 }
 
 template<typename E>
 zofia::RectangleContext zofia::Rectangle::cast(E &context) {
     return static_cast<RectangleContext>(context);
+}
+
+sf::Texture &zofia::Rectangle::getTexture() {
+    return m_texture;
+}
+
+sf::Sprite &zofia::Rectangle::getSprite() {
+    return m_sprite;
+}
+
+zofia::Size &zofia::Rectangle::getSize() {
+    return m_size;
+}
+
+zofia::Position &zofia::Rectangle::getPosition() {
+    return m_position;
 }
 
 #endif

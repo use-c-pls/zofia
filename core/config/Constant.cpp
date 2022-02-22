@@ -11,6 +11,10 @@ namespace zofia {
     const std::string DEFAULT_CONFIG_PATH = "resources/configs/config.json";
     const std::string DEFAULT_FONT = "Marker_Felt";
 
+    static int LEFT_TEXT = 0x01;
+    static int CENTER_TEXT = 0x10;
+    static int RIGHT_TEXT = 0x11;
+
     static const int DEFAULT_GAME_WIDTH = 1920;
     static const int DEFAULT_GAME_HEIGHT = 1080;
 
