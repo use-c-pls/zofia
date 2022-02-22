@@ -2,6 +2,19 @@
 #ifndef ZOFIA_APP_HPP
 #define ZOFIA_APP_HPP
 
+#include "core/core.hpp"
+#include "core/config.hpp"
+#include "core/logging.hpp"
+#include "core/resources.hpp"
+
+#include "entities/full.hpp"
+#include "game-states/full.hpp"
+
+#include "views/base.hpp"
+#include "views/view.hpp"
+
+#include "world/world.hpp"
+
 #include "../core/Greeting.cpp"
 #include "../core/Application.cpp"
 

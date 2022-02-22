@@ -2,18 +2,25 @@
 #ifndef ZOFIA_BASE_SPACESHIP_CPP
 #define ZOFIA_BASE_SPACESHIP_CPP
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include "../../include/core/config.hpp"
 #include "../../include/core/logging.hpp"
 #include "../HitBoxObject.cpp"
+#include "../Speed.cpp"
 
 namespace zofia {
     class SpaceShip { //: public DrawableObject
           using HBox = HitBoxObject;
         private:
           HBox m_hitBox{};
+          Speed m_speed{};
         public:
           SpaceShip() {
               m_hitBox = HBox(DEFAULT_HIT_BOX["space_ship_hit_box"]);
+              m_speed = Speed(20, 0);
               LOG_DEBUG("Created base space ship");
           }
 
@@ -43,6 +50,14 @@ namespace zofia {
 
           bool isHit(SpaceShip &another) const {
               return this->getHitBox().isHit(another.getHitBox());
+          }
+
+          void moveLeft() {
+              m_hitBox.move(m_speed.get().x * -1);
+          }
+
+          void moveRight() {
+              m_hitBox.move(m_speed.get().x);
           }
 
           void randomHitBox() {

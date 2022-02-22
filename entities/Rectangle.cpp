@@ -7,10 +7,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-#include "../core/Size.cpp"
-#include "../core/Position.cpp"
-#include "../core/Util.cpp"
-
+#include "../include/core/core.hpp"
 #include "../include/entities/base.hpp"
 
 #define ZOFIA zofia::

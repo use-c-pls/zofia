@@ -6,4 +6,6 @@
 #include "../../world/DrawableObject.cpp"
 #include "../../world/HitBoxObject.cpp"
 
+#include "spaceship.hpp"
+
 #endif //ZOFIA_WORLD_HPP

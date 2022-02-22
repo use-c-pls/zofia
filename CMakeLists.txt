@@ -65,7 +65,7 @@ set(GAME_SOURCE
         world/Object.cpp
         world/DrawableObject.cpp
         world/HitBoxObject.cpp
-        world/spaceship/SpaceShip.cpp)
+        world/spaceship/SpaceShip.cpp world/Speed.cpp)
 
 set(GAME_HEADER
         include/ZOFIA
@@ -87,7 +87,8 @@ set(GAME_HEADER
         include/views/base.hpp
         include/views/view.hpp
 
-        include/world/world.hpp)
+        include/world/world.hpp
+        include/world/spaceship.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}

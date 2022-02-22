@@ -2,7 +2,7 @@
 #ifndef ZOFIA_HITBOX_OBJECT_CPP
 #define ZOFIA_HITBOX_OBJECT_CPP
 
-#include "../include/core/logging.hpp"
+#include <SFML/Graphics/RectangleShape.hpp>
 #include "DrawableObject.cpp"
 
 namespace zofia {
@@ -12,7 +12,6 @@ namespace zofia {
         int16_t h;
         int16_t xOff;
         int16_t yOff;
-
 
         HitBoxData(int16_t w, int16_t h, int16_t xOff = 0, int16_t yOff = 0) {
             this->w = w;
@@ -67,6 +66,10 @@ namespace zofia {
           void setPosition(float x, float y);
 
           void setHitBoxSize(int16_t width, int16_t height);
+
+          void move(float velocity) {
+              m_rect.move(velocity, 0);
+          }
 
           sf::RectangleShape getDrawableObject() override {
               return this->m_rect;

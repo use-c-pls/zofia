@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "../StateManager.cpp"
 
-#include "../../world/spaceship/SpaceShip.cpp"
+#include "../../include/world/world.hpp"
 
 namespace zofia {
 
@@ -36,23 +36,18 @@ namespace zofia {
                   if (event.type == sf::Event::Closed) {
                       m_manager.quit();
                       m_window.close();
+                  } else if (event.type == sf::Event::KeyPressed) {
+                      if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                          m_player1.moveRight();
+                      } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                          m_player1.moveLeft();
+                      }
                   }
               }
           }
 
           void update() override {
-              m_player1.randomHitBox();
-              m_player2.randomHitBox();
 
-              if (m_player1.isHit(m_player2)) {
-                  std::stringstream log;
-                  log << "Player 1 hits player 2. ";
-                  log << "Player 1 Pos:" << m_player1.getHitBox().getPosition().toString();
-                  log << "; ";
-                  log << "Player 2 Pos:" << m_player2.getHitBox().getPosition().toString();
-
-                  LOG_DEBUG(log.str());
-              }
           }
 
           void draw() override {
