@@ -11,7 +11,7 @@
 #include "../core/Position.cpp"
 #include "../core/Util.cpp"
 
-#include "../entities/base.hpp"
+#include "../include/entities/base.hpp"
 
 #define ZOFIA zofia::
 

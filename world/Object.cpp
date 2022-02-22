@@ -2,7 +2,7 @@
 #ifndef ZOFIA_OBJECT_CPP
 #define ZOFIA_OBJECT_CPP
 
-#include "../core/core.hpp"
+#include "../include/core/core.hpp"
 
 namespace zofia {
 

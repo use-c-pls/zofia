@@ -3,7 +3,7 @@
 #define ZOFIA_ENTITY_FULL_HPP
 
 #include "base.hpp"
-#include "Typography.cpp"
-#include "Rectangle.cpp"
+#include "../../entities/Typography.cpp"
+#include "../../entities/Rectangle.cpp"
 
 #endif

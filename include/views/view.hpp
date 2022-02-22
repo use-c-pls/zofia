@@ -5,6 +5,6 @@
 #ifndef ZOFIA_VIEWS_HPP
 #define ZOFIA_VIEWS_HPP
 
-#include "Button.cpp"
+#include "../../views/Button.cpp"
 
 #endif //ZOFIA_VIEW_HPP

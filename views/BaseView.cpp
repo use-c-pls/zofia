@@ -5,8 +5,8 @@
 #ifndef ZOFIA_BASEVIEW_CPP
 #define ZOFIA_BASEVIEW_CPP
 
-#include "../core/logging/logging.hpp"
-#include "../entities/base.hpp"
+#include "../include/core/logging.hpp"
+#include "../include/entities/base.hpp"
 
 #include <utility>
 #include <map>

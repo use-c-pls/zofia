@@ -5,8 +5,8 @@
 #ifndef ZOFIA_BUTTON_CPP
 #define ZOFIA_BUTTON_CPP
 
-#include "../entities/full.hpp"
-#include "base.hpp"
+#include "../include/entities/full.hpp"
+#include "../include/views/base.hpp"
 
 namespace zofia {
     class ButtonContext : public BaseViewContext {

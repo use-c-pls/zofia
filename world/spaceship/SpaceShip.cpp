@@ -2,20 +2,22 @@
 #ifndef ZOFIA_BASE_SPACESHIP_CPP
 #define ZOFIA_BASE_SPACESHIP_CPP
 
-#include "../../core/logging/logging.hpp"
+#include "../../include/core/config.hpp"
+#include "../../include/core/logging.hpp"
 #include "../HitBoxObject.cpp"
 
 namespace zofia {
     class SpaceShip { //: public DrawableObject
-          using HBox = HitBoxObject<302, 76, 0, 0>;
+          using HBox = HitBoxObject;
         private:
           HBox m_hitBox{};
         public:
           SpaceShip() {
+              m_hitBox = HBox(DEFAULT_HIT_BOX["space_ship_hit_box"]);
               LOG_DEBUG("Created base space ship");
           }
 
-          HBox getHitBox() {
+          HBox getHitBox() const {
               return m_hitBox;
           }
 
@@ -35,6 +37,14 @@ namespace zofia {
               m_hitBox.setOrigin(x, y);
           }
 
+          void updateHitBoxSize(int w, int h) {
+              m_hitBox.setHitBoxSize(w, h);
+          }
+
+          bool isHit(SpaceShip &another) const {
+              return this->getHitBox().isHit(another.getHitBox());
+          }
+
           void randomHitBox() {
               float x = rand() % 2000;
               float y = rand() % 2000;
@@ -42,7 +52,7 @@ namespace zofia {
               updateHitBoxPos(x, y);
           }
 
-          void drawHitBox(sf::RenderWindow &window) {
+          void drawHitBox(sf::RenderTarget &window) {
               window.draw(m_hitBox.getDrawableObject());
           }
     };

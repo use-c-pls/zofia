@@ -3,8 +3,8 @@
 #define ZOFIA_GAME_STATES_FULL_HPP
 
 #include "base.hpp"
-#include "gameplay/gameplay.hpp"
-#include "intro/intro.hpp"
-#include "menu/menu.hpp"
+#include "gameplay.hpp"
+#include "intro.hpp"
+#include "menu.hpp"
 
 #endif

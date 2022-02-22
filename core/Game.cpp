@@ -5,7 +5,7 @@
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "../game-states/full.hpp"
+#include "../include/game-states/full.hpp"
 
 #include "Size.cpp"
 

@@ -7,8 +7,8 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 
-#include "../core/config/config.hpp"
-#include "../core/logging/logging.hpp"
+#include "../include/core/config.hpp"
+#include "../include/core/logging.hpp"
 
 #include "Entity.cpp"
 #include "EntityContext.cpp"

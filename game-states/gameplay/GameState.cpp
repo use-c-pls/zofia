@@ -13,35 +13,10 @@ namespace zofia {
         private:
           SpaceShip m_player1;
           SpaceShip m_player2;
-          SpaceShip m_player3;
         public:
           GameState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace) {
               LOG_INFO("GameState is created");
-
-              float windowWidth = 1920;
-              float windowHeight = 1080;
-
-              float marginTopForBtn1 = 200;
-              float marginTopForBtn2 = 100;
-              float marginTopForBtn3 = 0;
-
-              m_player1.updateColor(sf::Color::Red);
-              m_player2.updateColor(sf::Color::Green);
-              m_player3.updateColor(sf::Color::Yellow);
-
-              auto lb1 = m_player1.getHitBoxLocalBound();
-              auto lb2 = m_player2.getHitBoxLocalBound();
-              auto lb3 = m_player3.getHitBoxLocalBound();
-
-              m_player1.updateHitBoxOrigin(lb1.width / 2, 0);
-              m_player1.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn1);
-
-              m_player2.updateHitBoxOrigin(lb2.width / 2, 0);
-              m_player2.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn2);
-
-              m_player3.updateHitBoxOrigin(lb3.width / 2, 0);
-              m_player3.updateHitBoxPos(windowWidth / 2, windowHeight / 2 - marginTopForBtn3);
           }
 
           virtual ~GameState() = default;
@@ -64,14 +39,24 @@ namespace zofia {
           }
 
           void update() override {
-//              m_player.randomHitBox();
+              m_player1.updateHitBoxPos(200, 200.0);
+              m_player2.updateHitBoxPos(251.f, 251.f);
+
+              if (m_player1.isHit(m_player2)) {
+                  std::stringstream log;
+                  log << "Player 1 hits player 2. ";
+                  log << "Player 1 Pos:" << m_player1.getHitBox().getPosition().toString();
+                  log << "; ";
+                  log << "Player 2 Pos:" << m_player2.getHitBox().getPosition().toString();
+
+                  LOG_DEBUG(log.str());
+              }
           }
 
           void draw() override {
               m_window.clear(sf::Color::Black);
               m_player1.drawHitBox(m_window);
               m_player2.drawHitBox(m_window);
-              m_player3.drawHitBox(m_window);
               m_window.display();
           }
     };

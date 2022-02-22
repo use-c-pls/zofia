@@ -5,7 +5,7 @@
 #ifndef ZOFIA_BASE_VIEW_HPP
 #define ZOFIA_BASE_VIEW_HPP
 
-#include "BaseView.cpp"
+#include "../../views/BaseView.cpp"
 
 
 #endif //ZOFIA_BASE_VIEW_HPP

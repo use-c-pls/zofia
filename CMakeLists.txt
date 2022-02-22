@@ -65,25 +65,25 @@ set(GAME_SOURCE
         world/spaceship/SpaceShip.cpp)
 
 set(GAME_HEADER
-        core/config/config.hpp
+        include/core/config.hpp
 
-        core/core.hpp
+        include/core/core.hpp
 
-        core/logging/logging.hpp
+        include/core/logging.hpp
 
-        entities/base.hpp
-        entities/full.hpp
+        include/entities/base.hpp
+        include/entities/full.hpp
 
-        game-states/base.hpp
-        game-states/intro/intro.hpp
-        game-states/menu/menu.hpp
-        game-states/gameplay/gameplay.hpp
-        game-states/full.hpp
+        include/game-states/base.hpp
+        include/game-states/intro.hpp
+        include/game-states/menu.hpp
+        include/game-states/gameplay.hpp
+        include/game-states/full.hpp
 
-        views/base.hpp
-        views/view.hpp
+        include/views/base.hpp
+        include/views/view.hpp
 
-        world/world.hpp)
+        include/world/world.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}

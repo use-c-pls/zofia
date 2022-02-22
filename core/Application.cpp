@@ -2,7 +2,7 @@
 #ifndef ZOFIA_APPLICATION_CPP__
 #define ZOFIA_APPLICATION_CPP__
 
-#include "config/config.hpp"
+#include "../include/core/config.hpp"
 
 #include "Game.cpp"
 

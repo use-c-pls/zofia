@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../entities/full.hpp"
+#include "../include/entities/full.hpp"
 #include "StateManager.cpp"
 
 namespace zofia {

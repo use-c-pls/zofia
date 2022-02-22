@@ -2,6 +2,6 @@
 #ifndef ZOFIA_GAMEPLAY_HPP
 #define ZOFIA_GAMEPLAY_HPP
 
-#include "GameState.cpp"
+#include "../../game-states/gameplay/GameState.cpp"
 
-#endif //ZOFIA_GAMEPLAY_HPP
+#endif

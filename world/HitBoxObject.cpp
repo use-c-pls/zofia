@@ -2,27 +2,52 @@
 #ifndef ZOFIA_HITBOX_OBJECT_CPP
 #define ZOFIA_HITBOX_OBJECT_CPP
 
-#include "../core/logging/logging.hpp"
+#include "../include/core/logging.hpp"
 #include "DrawableObject.cpp"
 
 namespace zofia {
 
-    template<int16_t w, int16_t h, int16_t xOff = 0, int16_t yOff = 0>
+    struct HitBoxData {
+        int16_t w;
+        int16_t h;
+        int16_t xOff;
+        int16_t yOff;
+
+
+        HitBoxData(int16_t w, int16_t h, int16_t xOff = 0, int16_t yOff = 0) {
+            this->w = w;
+            this->h = h;
+            this->xOff = xOff;
+            this->yOff = yOff;
+        }
+
+        HitBoxData() : HitBoxData(0, 0) {}
+    };
+
     class HitBoxObject : public DrawableObject<sf::RectangleShape> {
-          static_assert(w > 0 && h > 0, "Invalid width or height for HitBoxObject");
         private:
           sf::RectangleShape m_rect;
-
+          HitBoxData m_data{};
         public:
           HitBoxObject() {
-              m_rect.setFillColor(sf::Color::Transparent);
-              m_rect.setOutlineColor(sf::Color::Red);
-              m_rect.setOutlineThickness(1);
-              m_rect.setSize(sf::Vector2f(w, h));
+              init();
           }
+
+          explicit HitBoxObject(const HitBoxData &data) : m_data(data) {
+              init();
+          }
+
+          HitBoxObject(int w, int h) : HitBoxObject(HitBoxData(w, h)) {
+          }
+
+          explicit HitBoxObject(std::vector<int16_t> v) : HitBoxObject(HitBoxData(v[0], v[1], v[2], v[3])) {}
 
           sf::FloatRect getLocalBound() {
               return m_rect.getLocalBounds();
+          }
+
+          sf::FloatRect getGlobalBound() {
+              return m_rect.getGlobalBounds();
           }
 
           void setOrigin(float x, float y) {
@@ -33,40 +58,65 @@ namespace zofia {
               m_rect.setOutlineColor(color);
           }
 
-          void setPosition(const Position &pos) {
-              float x = pos.getXAxis();
-              float y = pos.getYAxis();
-
-              m_position.setXAxis(x);
-              m_position.setYAxis(y);
-
-              m_rect.setPosition(x + xOff, y + yOff);
+          bool isHit(HitBoxObject another) {
+              return m_rect.getGlobalBounds().intersects(another.getGlobalBound());
           }
 
-          void setPosition(float x, float y) {
-              setPosition(Position(sf::Vector2f{x, y}));
-          }
+          void setPosition(const Position &pos);
+
+          void setPosition(float x, float y);
+
+          void setHitBoxSize(int16_t width, int16_t height);
 
           sf::RectangleShape getDrawableObject() override {
               return this->m_rect;
           }
 
-          float getXPos() {
+          float getXPos() const {
               return m_position.getXAxis();
           }
 
-          float getYPos() {
+          float getYPos() const {
               return m_position.getYAxis();
           }
 
           int16_t getWidth() {
-              return w;
+              return m_data.w;
           }
 
           int16_t getHeight() {
-              return h;
+              return m_data.h;
+          }
+
+          void reset() {
+              init();
+          }
+
+          void init() {
+              m_rect.setFillColor(sf::Color::Transparent);
+              m_rect.setOutlineColor(sf::Color::Red);
+              m_rect.setOutlineThickness(3);
+              m_rect.setSize(sf::Vector2f(m_data.w, m_data.h));
           }
     };
+
+    void HitBoxObject::setPosition(const Position &pos) {
+        float x = pos.getXAxis();
+        float y = pos.getYAxis();
+
+        m_position.setXAxis(x);
+        m_position.setYAxis(y);
+
+        m_rect.setPosition(x + m_data.xOff, y + m_data.yOff);
+    }
+
+    void HitBoxObject::setPosition(float x, float y) {
+        setPosition(Position(sf::Vector2f{x, y}));
+    }
+
+    void HitBoxObject::setHitBoxSize(int16_t width, int16_t height) {
+        m_rect.setSize(sf::Vector2f(width, height));
+    }
 }
 
 #endif

@@ -5,8 +5,8 @@
 #include <memory>
 #include <stack>
 
-#include "../core/config/config.hpp"
-#include "../core/logging/logging.hpp"
+#include "../include/core/config.hpp"
+#include "../include/core/logging.hpp"
 
 #include "BaseState.cpp"
 

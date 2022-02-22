@@ -6,6 +6,6 @@
 #define ZOFIA_MENU_STATES_HPP
 
 
-#include "MenuState.cpp"
+#include "../../game-states/menu/MenuState.cpp"
 
 #endif
