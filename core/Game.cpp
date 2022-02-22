@@ -5,6 +5,7 @@
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "logging/Logger.cpp"
 #include "../include/game-states/full.hpp"
 
 #include "Size.cpp"
@@ -37,6 +38,7 @@ sf::VideoMode createVideoMode(zofia::Size size) {
 zofia::Game::Game(Config config) : m_stateMachine(config) {
     Size size(config.getWidth(), config.getHeight());
     m_window.create(createVideoMode(size), TITLE, sf::Style::Titlebar | sf::Style::Close);
+    m_window.setFramerateLimit(120);
 }
 
 zofia::Game::~Game() {
@@ -44,7 +46,10 @@ zofia::Game::~Game() {
 }
 
 void zofia::Game::startEngine() {
+    sf::Clock clock;
     while (m_stateMachine.isRunning()) {
+        float fps = 1.0f / (clock.restart().asSeconds());
+        LOG_DEBUG("FPS: {}", fps);
         m_stateMachine.nextState();
         m_stateMachine.processEvents();
         m_stateMachine.update();

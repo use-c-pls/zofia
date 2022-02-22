@@ -34,5 +34,5 @@ build_type=Release
 
 ![position vs origin](media/origin_position.png "posvsori")
 
-
-
+7. How C++ works: https://www.youtube.com/watch?v=ksJ9bdSX5Yo
+8. Basic SFML: https://www.youtube.com/playlist?list=PLvv0ScY6vfd95GMoMe2zc4ZgGxWYj3vua
