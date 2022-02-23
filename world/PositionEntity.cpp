@@ -2,7 +2,10 @@
 #ifndef ZOFIA_OBJECT_CPP
 #define ZOFIA_OBJECT_CPP
 
+#include <SFML/Graphics/Rect.hpp>
+
 #include "../include/core/core.hpp"
+
 #include "Entity.cpp"
 
 namespace zofia {
@@ -35,7 +38,6 @@ namespace zofia {
                                                                                 drawable) {
           }
 
-
           bool isDrawable() const {
               return m_drawable;
           }
@@ -47,6 +49,16 @@ namespace zofia {
           void setPosition(Position pos) {
               m_position.set(pos.getAsVector2f());
           }
+
+
+          virtual sf::FloatRect getLocalBounds() {
+              return {};
+          }
+
+          virtual sf::FloatRect getGlobalBounds() {
+              return {};
+          }
+
     };
 }
 

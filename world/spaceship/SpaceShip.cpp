@@ -35,7 +35,7 @@ namespace zofia {
           }
 
           sf::FloatRect getHitBoxLocalBound() {
-              return m_hitBox.getLocalBound();
+              return m_hitBox.getLocalBounds();
           }
 
           void updateHitBoxPos(float x, float y) {

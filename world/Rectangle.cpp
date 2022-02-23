@@ -60,11 +60,11 @@ namespace zofia {
               return this->m_sprite.getColor();
           }
 
-          sf::FloatRect getLocalBounds() const {
+          sf::FloatRect getLocalBounds() override {
               return this->m_sprite.getLocalBounds();
           }
 
-          sf::FloatRect getGlobalBounds() const {
+          sf::FloatRect getGlobalBounds() override {
               return this->m_sprite.getGlobalBounds();
           }
 

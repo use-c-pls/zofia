@@ -18,10 +18,10 @@ namespace zofia {
         private:
           std::string m_id{};
         protected:
-          std::map<std::string, DrawableEntity *> m_entities;
+          std::map<std::string, std::unique_ptr<DrawableEntity>> m_entities;
 
-          void addEntity(std::string key, DrawableEntity *entity) {
-              this->m_entities.insert(std::pair<std::string, DrawableEntity *>(key, entity));
+          void addEntity(std::string key, std::unique_ptr<DrawableEntity> entity) {
+              this->m_entities.insert(std::make_pair(key, std::move(entity)));
           }
 
         public:
@@ -42,9 +42,6 @@ namespace zofia {
 template<typename BaseViewContext>
 zofia::BaseView<BaseViewContext>::~BaseView() {
     LOG_INFO("Destroying views `{}`", m_id);
-    for (const auto &it: m_entities) {
-        delete (it.second);
-    }
     m_entities.clear();
 }
 

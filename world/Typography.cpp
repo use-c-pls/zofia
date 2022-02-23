@@ -58,11 +58,11 @@ namespace zofia {
           template<typename E>
           void update(E &context);
 
-          sf::FloatRect getLocalBounds() const {
+          sf::FloatRect getLocalBounds() override {
               return this->m_text.getLocalBounds();
           }
 
-          sf::FloatRect getGlobalBounds() const {
+          sf::FloatRect getGlobalBounds() override {
               return this->m_text.getGlobalBounds();
           }
 

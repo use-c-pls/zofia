@@ -29,10 +29,8 @@ namespace zofia {
 
         public:
           explicit Button(std::string str, Position position, Size size) : BaseView<ButtonContext>("button") {
-              auto *typography = new Typography();
-              auto *rectangle = new Rectangle("resources/views/button.jpg", size, position);
-              this->addEntity("typo", typography);
-              this->addEntity("rect", rectangle);
+              this->addEntity("typo", zofia::make_unique<Typography>());
+              this->addEntity("rect", zofia::make_unique<Rectangle>("resources/views/button.jpg", size, position));
 
               setText(str);
           };
@@ -62,14 +60,6 @@ namespace zofia {
 void zofia::Button::draw(sf::RenderTarget &target) {
     getRectangle()->draw(target);
     getTypography()->draw(target);
-}
-
-zofia::Typography *zofia::Button::getTypography() {
-    return dynamic_cast<Typography *>(m_entities["typo"]);
-}
-
-zofia::Rectangle *zofia::Button::getRectangle() {
-    return dynamic_cast<Rectangle *>(m_entities["rect"]);
 }
 
 void zofia::Button::update(ButtonContext &context) {
@@ -136,6 +126,14 @@ void zofia::Button::margin(zofia::MarginInfo marginInfo) {
     }
 
     getRectangle()->update(context);
+}
+
+zofia::Typography *zofia::Button::getTypography() {
+    return dynamic_cast<Typography *>(m_entities["typo"].get());
+}
+
+zofia::Rectangle *zofia::Button::getRectangle() {
+    return dynamic_cast<Rectangle *>(m_entities["rect"].get());
 }
 
 #endif

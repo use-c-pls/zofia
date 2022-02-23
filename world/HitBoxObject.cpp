@@ -41,14 +41,6 @@ namespace zofia {
 
           explicit HitBoxObject(std::vector<int16_t> v) : HitBoxObject(HitBoxData(v[0], v[1], v[2], v[3])) {}
 
-          sf::FloatRect getLocalBound() {
-              return m_rect.getLocalBounds();
-          }
-
-          sf::FloatRect getGlobalBound() {
-              return m_rect.getGlobalBounds();
-          }
-
           void setOrigin(float x, float y) {
               m_rect.setOrigin(x, y);
           }
@@ -58,7 +50,7 @@ namespace zofia {
           }
 
           bool isHit(HitBoxObject another) {
-              return m_rect.getGlobalBounds().intersects(another.getGlobalBound());
+              return m_rect.getGlobalBounds().intersects(another.getGlobalBounds());
           }
 
           void setPosition(const Position &pos);
@@ -73,6 +65,14 @@ namespace zofia {
 
           sf::RectangleShape getDrawableObject() override {
               return this->m_rect;
+          }
+
+          sf::FloatRect getLocalBounds() override {
+              return m_rect.getLocalBounds();
+          }
+
+          sf::FloatRect getGlobalBounds() override {
+              return m_rect.getLocalBounds();
           }
 
           float getXPos() const {
