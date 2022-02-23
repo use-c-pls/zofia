@@ -4,8 +4,10 @@
 #define ZOFIA_MARGIN_CPP__
 
 namespace zofia {
-    enum Margin{
-        TOP = 1, BOTTOM = 2, LEFT = 3, RIGHT = 4
+    struct Margin{
+        enum {
+            TOP = 1, BOTTOM = 2, LEFT = 3, RIGHT = 4
+        };
     };
 
     class MarginInfo {
