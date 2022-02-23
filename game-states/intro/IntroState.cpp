@@ -4,7 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "../../include/world/widget.hpp"
-#include "../StateManager.cpp"
+#include "../gameplay/GameState.cpp"
+#include "../StateFactory.cpp"
 
 namespace zofia {
     class IntroState final : public BaseState {
@@ -15,6 +16,8 @@ namespace zofia {
                   : BaseState(machine, window, replace),
                     m_button("Hello world", Position(0, 0), Size(300, 400)) {
               LOG_INFO("IntroState is created");
+
+              m_button.setId("hello_btn");
           }
 
           void pause() override {

@@ -6,6 +6,7 @@
 #define ZOFIA_BUTTON_CPP
 
 #include <SFML/Window/Event.hpp>
+#include <utility>
 #include "../util/Align.cpp"
 #include "../Typography.cpp"
 #include "../Rectangle.cpp"
@@ -69,7 +70,7 @@ namespace zofia {
 }
 
 void zofia::Button::setFunc(std::function<void(void)> func) {
-    this->m_func = func;
+    this->m_func = std::move(func);
 }
 
 void zofia::Button::handleEvent(sf::RenderTarget &target, sf::Event e) {
@@ -82,7 +83,9 @@ void zofia::Button::handleEvent(sf::RenderTarget &target, sf::Event e) {
     this->m_func();
 }
 
-bool zofia::Button::onAreaOfButton(const sf::Event &e, Rectangle *rect) { return rect->getGlobalBounds().contains(e.mouseButton.x, e.mouseButton.y); }
+bool zofia::Button::onAreaOfButton(const sf::Event &e, Rectangle *rect) {
+    return rect->getGlobalBounds().contains(e.mouseButton.x, e.mouseButton.y);
+}
 
 bool zofia::Button::isSupportMouseButton(const sf::Event &e) const {
     return e.mouseButton.button == sf::Mouse::Left || e.mouseButton.button == sf::Mouse::Right;

@@ -5,6 +5,7 @@
 #define ZOFIA_MENU_STACK_CPP__
 
 #include <SFML/Graphics.hpp>
+#include <utility>
 
 #include "BaseViewContext.cpp"
 #include "BaseView.cpp"
@@ -17,27 +18,27 @@ namespace zofia {
 
     class MenuStack : public BaseView<MenuStackContext> {
         private:
-          zofia::Button *cast(std::unique_ptr<DrawableEntity> entity) {
-              return dynamic_cast<Button *>(entity.get());
-          }
-
-          zofia::Button *getButton(std::string name) {
-              return cast(std::move(m_entities[name]));
+          zofia::Button *getButton(const std::string &name) {
+              return dynamic_cast<Button *>(m_entities[name].get());
           }
 
         public:
-          MenuStack() : BaseView() {
+          MenuStack() : BaseView("menu_stack") {
               this->addEntity("start", std::move(zofia::make_unique<Button>("Start", Position(0, 0), Size(302, 76))));
-              this->addEntity("setting", std::move(zofia::make_unique<Button>("Setting", Position(0, 0), Size(302, 76))));
+              this->addEntity("setting",
+                              std::move(zofia::make_unique<Button>("Setting", Position(0, 0), Size(302, 76))));
               this->addEntity("quit", std::move(zofia::make_unique<Button>("Quit", Position(0, 0), Size(302, 76))));
 
+              getButton("start")->setId("start_btn");
+              getButton("setting")->setId("setting_btn");
+              getButton("quit")->setId("quit_btn");
           }
 
           void handleEvent(sf::RenderTarget &target, sf::Event e);
 
           void center(Rectangle &rect);
 
-          void setFunc(std::string name, std::function<void(void)> func);
+          void setFunc(const std::string &name, std::function<void(void)> func);
 
           void draw(sf::RenderTarget &target) override;
 
@@ -62,13 +63,13 @@ void zofia::MenuStack::center(Rectangle &rect) {
     quitBtn->alignText(zofia::Align::CENTER);
 }
 
-void zofia::MenuStack::setFunc(std::string name, std::function<void(void)> func) {
-    this->getButton(name)->setFunc(func);
+void zofia::MenuStack::setFunc(const std::string &name, std::function<void(void)> func) {
+    this->getButton(name)->setFunc(std::move(func));
 }
 
 void zofia::MenuStack::handleEvent(sf::RenderTarget &target, sf::Event e) {
-    for (auto & it : m_entities) {
-        cast(std::move(it.second))->handleEvent(target, e);
+    for (auto &it: m_entities) {
+        getButton(it.first)->handleEvent(target, e);
     }
 }
 
@@ -77,10 +78,9 @@ void zofia::MenuStack::update(zofia::MenuStackContext &context) {
 }
 
 void zofia::MenuStack::draw(sf::RenderTarget &target) {
-//    for (auto & it : m_entities) {
-//
-//    }
-    getButton("start")->draw(target);
+    for (auto &it: m_entities) {
+        getButton(it.first)->draw(target);
+    }
 }
 
 #endif

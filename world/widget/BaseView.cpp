@@ -35,6 +35,10 @@ namespace zofia {
           ~BaseView() override;
 
           virtual void update(T &context) = 0;
+
+          void setId(std::string id) {
+              m_id = std::move(id);
+          }
     };
 
 }
