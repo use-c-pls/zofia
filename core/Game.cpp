@@ -5,9 +5,9 @@
 #include <memory>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "logging/Logger.cpp"
 #include "../include/game-states/full.hpp"
 
+#include "logging/Logger.cpp"
 #include "Size.cpp"
 
 namespace zofia {
@@ -48,8 +48,8 @@ zofia::Game::~Game() {
 void zofia::Game::startEngine() {
     sf::Clock clock;
     while (m_stateMachine.isRunning()) {
-        float fps = 1.0f / (clock.restart().asSeconds());
-        LOG_DEBUG("FPS: {}", fps);
+//        float fps = 1.0f / (clock.restart().asSeconds());
+//        LOG_DEBUG("FPS: {}", fps);
         m_stateMachine.nextState();
         m_stateMachine.processEvents();
         m_stateMachine.update();

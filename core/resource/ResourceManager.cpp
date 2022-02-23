@@ -6,7 +6,7 @@
 #include <utility>
 #include <unordered_map>
 
-#include "../../include/core/logging.hpp"
+#include "../logging/Logger.cpp"
 
 namespace zofia {
     template<typename Resource>

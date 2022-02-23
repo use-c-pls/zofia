@@ -11,10 +11,9 @@
 #include "../include/core/config.hpp"
 #include "../include/core/core.hpp"
 
-#include "Entity.cpp"
+#include "DrawableEntity.cpp"
 #include "EntityContext.cpp"
 
-#define ZOFIA zofia::
 namespace zofia {
     class TypographyContext : public EntityContext {
         public:
@@ -31,11 +30,9 @@ namespace zofia {
           explicit TypographyContext(std::string text) : m_text(std::move(text)) {}
 
           explicit TypographyContext(int textSize) : m_textSize(textSize) {}
-
-          virtual ~TypographyContext() = default;
     };
 
-    class Typography : public Entity {
+    class Typography : public DrawableEntity {
         private:
           sf::Text m_text;
           sf::Font m_font;
@@ -45,24 +42,18 @@ namespace zofia {
           TypographyContext cast(E &context);
 
         public:
-          explicit Typography(sf::RenderWindow &window, std::string &fontName) : Entity(window) {
-              this->m_font = ResourceHolder::get().fonts().get(fontName);
-              this->m_text = createText("");
-          };
 
-          explicit Typography(sf::RenderWindow &window) : Entity(window) {
+          explicit Typography() : DrawableEntity() {
               this->m_font = ResourceHolder::get().fonts().get(DEFAULT_FONT);
               this->m_text = createText("");
           }
 
-          explicit Typography(sf::RenderWindow &window,std::string &fontName,std::string text) : Entity(window) {
+          explicit Typography(const std::string &text, std::string &fontName) : DrawableEntity() {
               this->m_font = ResourceHolder::get().fonts().get(fontName);
               this->m_text = createText(text);
           }
 
-          virtual ~Typography();
-
-          void draw() override;
+          void draw(sf::RenderTarget &target) override;
 
           template<typename E>
           void update(E &context);
@@ -75,7 +66,7 @@ namespace zofia {
               return this->m_text.getGlobalBounds();
           }
 
-          Position getPosition(){
+          Position getPosition() {
               return this->m_position;
           }
 
@@ -88,39 +79,34 @@ template<typename E>
 void zofia::Typography::update(E &context) {
     TypographyContext casted = cast(context);
 
-    if(casted.m_textSize != 0){
+    if (casted.m_textSize != 0) {
         this->m_text.setCharacterSize(casted.m_textSize);
     }
-    if(casted.m_text.length() != 0){
+    if (casted.m_text.length() != 0) {
         this->m_text.setString(casted.m_text);
     }
 
-    if(casted.m_color != this->m_text.getFillColor()){
+    if (casted.m_color != this->m_text.getFillColor()) {
         this->m_text.setFillColor(casted.m_color);
     }
-    this->m_position = Position(casted.m_position.getXAxis(),casted.m_position.getYAxis());
-    this->m_text.setOrigin(casted.m_origin.getXAxis(),casted.m_origin.getYAxis());
-    this->m_text.setPosition(casted.m_position.getXAxis(),casted.m_position.getYAxis());
-    LOG_DEBUG(casted.m_text);
+    this->m_position = Position(casted.m_position.getXAxis(), casted.m_position.getYAxis());
+    this->m_text.setOrigin(casted.m_origin.getXAxis(), casted.m_origin.getYAxis());
+    this->m_text.setPosition(casted.m_position.getXAxis(), casted.m_position.getYAxis());
 }
 
-zofia::Typography::~Typography() {
-    LOG_INFO("Destroying Typography...");
-}
-
-void zofia::Typography::draw() {
-    this->m_window.draw(this->m_text);
+void zofia::Typography::draw(sf::RenderTarget &target) {
+    target.draw(this->m_text);
 }
 
 sf::Text zofia::Typography::createText(const std::string &message) {
     sf::Text text;
-    Position position{0,0};
+    Position position{0, 0};
     text.setString(message);
     text.setCharacterSize(36); // in pixels, not points!
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
     text.setFont(m_font);
-    text.setPosition(position.getXAxis(),position.getYAxis());
+    text.setPosition(position.getXAxis(), position.getYAxis());
     return text;
 }
 

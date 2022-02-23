@@ -3,7 +3,7 @@
 #define ZOFIA_UTIL_CPP__
 
 #include <memory>
-#include "../include/core/logging.hpp"
+#include "logging/Logger.cpp"
 
 namespace zofia {
 

@@ -1,6 +1,6 @@
 /* Author @daoluke */
-#ifndef ZOFIA_INTRO_STATES_HPP
-#define ZOFIA_INTRO_STATES_HPP
+#ifndef ZOFIA_INTRO_STATES_HEADER_HPP
+#define ZOFIA_INTRO_STATES_HEADER_HPP
 
 #include "../../game-states/intro/IntroState.cpp"
 

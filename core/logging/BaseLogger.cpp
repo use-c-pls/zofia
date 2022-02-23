@@ -18,38 +18,24 @@ namespace zofia {
               info("Init default logging");
           };
 
-          explicit BaseLogger(std::string name) {
-              auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-              m_logger = std::make_shared<spdlog::logger>(name, sink);
-              spdlog::initialize_logger(m_logger);
-          }
+          explicit BaseLogger(std::string name);
 
           void changeLogLevel(std::string logLevel);
 
           template<typename... Args>
-          void debug(const std::string fmt, Args &...args) {
-              this->m_logger->debug(fmt, args...);
-          }
+          void debug(std::string fmt, Args &...args);
 
           template<typename... Args>
-          void info(const std::string fmt, Args &...args) {
-              this->m_logger->info(fmt, args...);
-          }
+          void info(std::string fmt, Args &...args);
 
           template<typename... Args>
-          void warn(const std::string fmt, Args &...args) {
-              this->m_logger->warn(fmt, args...);
-          }
+          void warn(std::string fmt, Args &...args);
 
           template<typename... Args>
-          void error(const std::string fmt, Args &...args) {
-              this->m_logger->error(fmt, args...);
-          }
+          void error(std::string fmt, Args &...args);
 
           template<typename... Args>
-          void critical(const std::string fmt, Args &...args) {
-              this->m_logger->critical(fmt, args...);
-          }
+          void critical(std::string fmt, Args &...args);
 
         private:
 
@@ -75,6 +61,37 @@ void ZOFIA BaseLogger::changeLogLevel(std::string logLevel) {
     } else if (logLevel == "critical") {
         this->m_logger->set_level(spdlog::level::critical);
     }
+}
+
+zofia::BaseLogger::BaseLogger(std::string name) {
+    auto sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    m_logger = std::make_shared<spdlog::logger>(name, sink);
+    spdlog::initialize_logger(m_logger);
+}
+
+template<typename... Args>
+void zofia::BaseLogger::debug(const std::string fmt, Args &... args) {
+    this->m_logger->debug(fmt, args...);
+}
+
+template<typename... Args>
+void zofia::BaseLogger::info(const std::string fmt, Args &... args) {
+    this->m_logger->info(fmt, args...);
+}
+
+template<typename... Args>
+void zofia::BaseLogger::warn(const std::string fmt, Args &... args) {
+    this->m_logger->warn(fmt, args...);
+}
+
+template<typename... Args>
+void zofia::BaseLogger::error(const std::string fmt, Args &... args) {
+    this->m_logger->error(fmt, args...);
+}
+
+template<typename... Args>
+void zofia::BaseLogger::critical(const std::string fmt, Args &... args) {
+    this->m_logger->critical(fmt, args...);
 }
 
 #endif

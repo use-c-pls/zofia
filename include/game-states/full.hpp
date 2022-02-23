@@ -1,6 +1,6 @@
 /* Author @daoluke */
-#ifndef ZOFIA_GAME_STATES_FULL_HPP
-#define ZOFIA_GAME_STATES_FULL_HPP
+#ifndef ZOFIA_GAME_STATES_FULL_HEADER_HPP
+#define ZOFIA_GAME_STATES_FULL_HEADER_HPP
 
 #include "base.hpp"
 #include "gameplay.hpp"

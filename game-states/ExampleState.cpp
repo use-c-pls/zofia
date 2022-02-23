@@ -4,7 +4,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../include/entities/full.hpp"
+#include "../include/world/widget.hpp"
+
 #include "StateManager.cpp"
 
 namespace zofia {
@@ -13,7 +14,7 @@ namespace zofia {
           Typography m_typo;
         public:
           ExampleState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
-                  : BaseState(machine, window, replace), m_typo(window) {
+                  : BaseState(machine, window, replace), m_typo() {
               LOG_INFO("ExampleState is created");
           };
 
@@ -37,7 +38,7 @@ namespace zofia {
           }
 
           void update() override {
-              int val = rand() % 100 + 1;
+              int val = std::rand() % 100 + 1;
               std::string str = "Random: " + std::to_string(val) + "\n";
               TypographyContext context(str, 54);
               m_typo.update(context);
@@ -46,7 +47,7 @@ namespace zofia {
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_typo.draw();
+              m_typo.draw(m_window);
               m_window.display();
           }
     };

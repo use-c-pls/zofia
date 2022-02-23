@@ -7,13 +7,9 @@
 #include "core/logging.hpp"
 #include "core/resources.hpp"
 
-#include "entities/full.hpp"
 #include "game-states/full.hpp"
 
-#include "views/base.hpp"
-#include "views/view.hpp"
-
-#include "world/world.hpp"
+#include "world/full.hpp"
 
 #include "../core/Greeting.cpp"
 #include "../core/Application.cpp"

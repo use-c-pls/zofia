@@ -54,18 +54,22 @@ set(GAME_SOURCE
         game-states/intro/IntroState.cpp
         game-states/gameplay/GameState.cpp
 
-        entities/Entity.cpp
-        entities/Rectangle.cpp
-        entities/Typography.cpp
-        entities/EntityContext.cpp
+        world/util/Speed.cpp
+        world/util/Margin.cpp
+        world/widget/BaseViewContext.cpp
 
-        views/Button.cpp
-        views/BaseView.cpp
-
-        world/Object.cpp
-        world/DrawableObject.cpp
+        world/Entity.cpp
+        world/EntityContext.cpp
+        world/IDrawable.cpp
+        world/PositionEntity.cpp
+        world/DrawableHolderEntity.cpp
         world/HitBoxObject.cpp
-        world/spaceship/SpaceShip.cpp world/Speed.cpp)
+        world/spaceship/SpaceShip.cpp
+
+        world/Rectangle.cpp
+        world/Typography.cpp
+        world/widget/Button.cpp
+        world/widget/BaseView.cpp)
 
 set(GAME_HEADER
         include/ZOFIA
@@ -75,24 +79,20 @@ set(GAME_HEADER
         include/core/logging.hpp
         include/core/resources.hpp
 
-        include/entities/base.hpp
-        include/entities/full.hpp
-
         include/game-states/base.hpp
         include/game-states/intro.hpp
         include/game-states/menu.hpp
         include/game-states/gameplay.hpp
         include/game-states/full.hpp
 
-        include/views/base.hpp
-        include/views/view.hpp
-
-        include/world/world.hpp
-        include/world/spaceship.hpp)
+        include/world/base.hpp
+        include/world/widget.hpp
+        include/world/spaceship.hpp
+        include/world/full.hpp)
 #
 set(all_code_files
         ${GAME_HEADER}
-        ${GAME_SOURCE})
+        ${GAME_SOURCE} world/util/Align.cpp world/DrawableEntity.cpp)
 
 add_library(${APP_NAME} SHARED ${all_code_files})
 

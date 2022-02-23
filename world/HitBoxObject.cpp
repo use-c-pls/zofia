@@ -3,7 +3,7 @@
 #define ZOFIA_HITBOX_OBJECT_CPP
 
 #include <SFML/Graphics/RectangleShape.hpp>
-#include "DrawableObject.cpp"
+#include "DrawableHolderEntity.cpp"
 
 namespace zofia {
 
@@ -23,7 +23,7 @@ namespace zofia {
         HitBoxData() : HitBoxData(0, 0) {}
     };
 
-    class HitBoxObject : public DrawableObject<sf::RectangleShape> {
+    class HitBoxObject : public DrawableHolderEntity<sf::RectangleShape> {
         private:
           sf::RectangleShape m_rect;
           HitBoxData m_data{};

@@ -56,8 +56,8 @@ void zofia::Config::init(const std::string &configPath) {
     std::string jsonStr = readConfigAsString(configPath);
     Poco::JSON::Object::Ptr rootJson = parse(jsonStr);
 
-    this->m_width = get(rootJson, "window_width", zofia::DEFAULT_GAME_WIDTH);
-    this->m_height = get(rootJson, "window_height", zofia::DEFAULT_GAME_HEIGHT);
+    this->m_width = get(rootJson, "window_width", zofia::Display::WIDTH);
+    this->m_height = get(rootJson, "window_height", zofia::Display::HEIGHT);
     this->m_language = get(rootJson, "language", "en");
     this->m_volume = get(rootJson, "volume", 1800);
 

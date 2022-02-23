@@ -3,35 +3,34 @@
 #define ZOFIA_MENU_SCENE_CPP__
 
 #include <SFML/Graphics.hpp>
+
 namespace zofia {
     class MenuState final : public BaseState {
         private:
           Rectangle m_background;
-          std::vector<Button*> m_buttons;
+          std::vector<Button *> m_buttons;
         public:
           MenuState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace),
-                    m_background(window, "resources/backgrounds/menu_background.jpg",
-                                 Size(1920, 1080), Position(0, 0)) {
-              m_buttons.push_back(new Button(window,"Start",Position(0,0),Size(302,76)));
-              m_buttons.push_back(new Button(window,"Setting",Position(0,0),Size(302,76)));
-              m_buttons.push_back(new Button(window,"Quit",Position(0,0),Size(302,76)));
+                    m_background("resources/backgrounds/menu_background.jpg",
+                                 Size(zofia::Display::WIDTH, zofia::Display::HEIGHT), Position(0, 0)) {
+              m_buttons.push_back(new Button("Start", Position(0, 0), Size(302, 76)));
+              m_buttons.push_back(new Button("Setting", Position(0, 0), Size(302, 76)));
+              m_buttons.push_back(new Button("Quit", Position(0, 0), Size(302, 76)));
               m_buttons[0]->center(m_background);
 
               m_buttons[1]->center(m_background);
               m_buttons[2]->center(m_background);
 
-              m_buttons[0]->marginBottom(200);
-              m_buttons[1]->marginBottom(100);
+              m_buttons[0]->margin(zofia::MarginInfo(Margin::BOTTOM, 200));
+              m_buttons[1]->margin(zofia::MarginInfo(Margin::BOTTOM, 100));
 
-              m_buttons[0]->alignText(zofia::CENTER_TEXT);
-              m_buttons[1]->alignText(zofia::CENTER_TEXT);
-              m_buttons[2]->alignText(zofia::CENTER_TEXT);
+              m_buttons[0]->alignText(zofia::Align::CENTER);
+              m_buttons[1]->alignText(zofia::Align::CENTER);
+              m_buttons[2]->alignText(zofia::Align::CENTER);
 
               LOG_INFO("MenuState is created");
           };
-
-          virtual ~MenuState() = default;
 
           void pause() override {
           }
@@ -57,9 +56,9 @@ namespace zofia {
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_background.draw();
-              for(auto each : m_buttons){
-                  each->draw();
+              m_background.draw(m_window);
+              for (auto each: m_buttons) {
+                  each->draw(m_window);
               }
               m_window.display();
           }

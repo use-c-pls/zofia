@@ -7,7 +7,10 @@
 
 namespace zofia {
     class EntityContext {
+        public:
+          explicit EntityContext() = default;
 
+          virtual ~EntityContext() = default;
     };
 }
 

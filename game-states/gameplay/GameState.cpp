@@ -3,13 +3,14 @@
 #define ZOFIA_GAME_STATE_CPP__
 
 #include <SFML/Graphics.hpp>
-#include "../StateManager.cpp"
 
-#include "../../include/world/world.hpp"
+#include "../../include/world/full.hpp"
+
+#include "../StateManager.cpp"
 
 namespace zofia {
 
-    class GameState : public BaseState {
+    class GameState final : public BaseState {
         private:
           SpaceShip m_player1;
           SpaceShip m_player2;
@@ -20,8 +21,6 @@ namespace zofia {
               m_player1.updateColor(sf::Color::Red);
               m_player2.updateColor(sf::Color::Green);
           }
-
-          virtual ~GameState() = default;
 
           void pause() override {
           }

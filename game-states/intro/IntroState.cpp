@@ -3,8 +3,8 @@
 #define ZOFIA_INTRO_STATE_CPP__
 
 #include <SFML/Graphics.hpp>
+#include "../../include/world/widget.hpp"
 #include "../StateManager.cpp"
-#include "../../views/Button.cpp"
 
 namespace zofia {
     class IntroState final : public BaseState {
@@ -13,11 +13,9 @@ namespace zofia {
         public:
           IntroState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
                   : BaseState(machine, window, replace),
-                    m_button(window, "Hello world", Position(0, 0), Size(300, 400)) {
+                    m_button("Hello world", Position(0, 0), Size(300, 400)) {
               LOG_INFO("IntroState is created");
           }
-
-          virtual ~IntroState() = default;
 
           void pause() override {
           }
@@ -42,7 +40,7 @@ namespace zofia {
 
           void draw() override {
               m_window.clear(sf::Color::Black);
-              m_button.draw();
+              m_button.draw(m_window);
               m_window.display();
           }
     };

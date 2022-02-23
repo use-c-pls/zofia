@@ -3,7 +3,8 @@
 #define ZOFIA_STATE_FACTORY_CPP__
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "../core/Util.cpp"
+
+#include "../include/core/core.hpp"
 
 #include "StateManager.cpp"
 

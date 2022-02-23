@@ -8,20 +8,26 @@
 
 #include "../../include/core/config.hpp"
 #include "../../include/core/logging.hpp"
+
+#include "../util/Speed.cpp"
+#include "../DrawableEntity.cpp"
 #include "../HitBoxObject.cpp"
-#include "../Speed.cpp"
 
 namespace zofia {
-    class SpaceShip { //: public DrawableObject
+    class SpaceShip : DrawableEntity {
           using HBox = HitBoxObject;
         private:
           HBox m_hitBox{};
           Speed m_speed{};
         public:
-          SpaceShip() {
+          SpaceShip() : DrawableEntity() {
               m_hitBox = HBox(DEFAULT_HIT_BOX["space_ship_hit_box"]);
               m_speed = Speed(20, 0);
               LOG_DEBUG("Created base space ship");
+          }
+
+          void draw(sf::RenderTarget &target) override {
+
           }
 
           HBox getHitBox() const {

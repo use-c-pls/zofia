@@ -5,8 +5,8 @@
 #ifndef ZOFIA_POSITION_CPP__
 #define ZOFIA_POSITION_CPP__
 
-#include <SFML/System/Vector2.hpp>
 #include <sstream>
+#include <SFML/System/Vector2.hpp>
 
 namespace zofia {
     class Position {

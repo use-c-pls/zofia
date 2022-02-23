@@ -1,6 +1,6 @@
 /* Author @daoluke */
-#ifndef ZOFIA_GAME_STATE_BASE_HPP
-#define ZOFIA_GAME_STATE_BASE_HPP
+#ifndef ZOFIA_GAME_STATE_BASE_HEADER_HPP
+#define ZOFIA_GAME_STATE_BASE_HEADER_HPP
 
 #include "../../game-states/BaseState.cpp"
 #include "../../game-states/StateManager.cpp"
