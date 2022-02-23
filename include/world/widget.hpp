@@ -5,5 +5,6 @@
 #include "../../world/Typography.cpp"
 #include "../../world/Rectangle.cpp"
 #include "../../world/widget/Button.cpp"
+#include "../../world/widget/MenuStack.cpp"
 
 #endif

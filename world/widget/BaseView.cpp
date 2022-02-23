@@ -17,6 +17,7 @@ namespace zofia {
     class BaseView : public DrawableEntity {
         private:
           std::string m_id{};
+
         protected:
           std::map<std::string, std::unique_ptr<DrawableEntity>> m_entities;
 

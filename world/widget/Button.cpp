@@ -5,6 +5,7 @@
 #ifndef ZOFIA_BUTTON_CPP
 #define ZOFIA_BUTTON_CPP
 
+#include <SFML/Window/Event.hpp>
 #include "../util/Align.cpp"
 #include "../Typography.cpp"
 #include "../Rectangle.cpp"
@@ -27,6 +28,8 @@ namespace zofia {
 
           Rectangle *getRectangle();
 
+          std::function<void(void)> m_func = []() {};
+
         public:
           explicit Button(std::string str, Position position, Size size) : BaseView<ButtonContext>("button") {
               this->addEntity("typo", zofia::make_unique<Typography>());
@@ -45,6 +48,10 @@ namespace zofia {
 
           void alignText(zofia::Align align);
 
+          void handleEvent(sf::RenderTarget &target, sf::Event e);
+
+          void setFunc(std::function<void(void)> func);
+
           Position getPosition() {
               return this->getRectangle()->getPosition();
           }
@@ -54,7 +61,31 @@ namespace zofia {
           }
 
           void margin(MarginInfo marginInfo);
+
+          bool isSupportMouseButton(const sf::Event &e) const;
+
+          bool onAreaOfButton(const sf::Event &e, Rectangle *rect);
     };
+}
+
+void zofia::Button::setFunc(std::function<void(void)> func) {
+    this->m_func = func;
+}
+
+void zofia::Button::handleEvent(sf::RenderTarget &target, sf::Event e) {
+    if (e.type != sf::Event::MouseButtonPressed) {
+        return;
+    }
+    if (!isSupportMouseButton(e))return;
+    if (!onAreaOfButton(e, getRectangle()))return;
+
+    this->m_func();
+}
+
+bool zofia::Button::onAreaOfButton(const sf::Event &e, Rectangle *rect) { return rect->getGlobalBounds().contains(e.mouseButton.x, e.mouseButton.y); }
+
+bool zofia::Button::isSupportMouseButton(const sf::Event &e) const {
+    return e.mouseButton.button == sf::Mouse::Left || e.mouseButton.button == sf::Mouse::Right;
 }
 
 void zofia::Button::draw(sf::RenderTarget &target) {
