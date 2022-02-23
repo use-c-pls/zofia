@@ -12,8 +12,6 @@
 #include "../../world/PositionEntity.cpp"
 #include "../../world/DrawableEntity.cpp"
 #include "../../world/DrawableHolderEntity.cpp"
-#include "../../world/PositionEntity.cpp"
-#include "../../world/DrawableHolderEntity.cpp"
 #include "../../world/HitBoxObject.cpp"
 
 #endif
