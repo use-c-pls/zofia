@@ -37,8 +37,9 @@ namespace zofia {
               }
           }
 
-          void update() override {
-              LOG_DEBUG("IntroStates updating");
+          void update(sf::Time deltaTime) override {
+              auto val = std::to_string(deltaTime.asSeconds());
+//              LOG_DEBUG("Intro update with {}", val);
           }
 
           void draw() override {
