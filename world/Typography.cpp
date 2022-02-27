@@ -22,6 +22,7 @@ namespace zofia {
           Position m_position;
           sf::Color m_color{sf::Color::Black};
           Position m_origin;
+          int m_thickness{-1};
 
           explicit TypographyContext(std::string text, int textSize) : m_text(std::move(text)), m_textSize(textSize) {}
 
@@ -70,6 +71,10 @@ namespace zofia {
               return this->m_position;
           }
 
+          void setText(const std::string &text) {
+              m_text.setString(text);
+          }
+
         private:
           sf::Text createText(const std::string &message);
     };
@@ -89,9 +94,14 @@ void zofia::Typography::update(E &context) {
     if (casted.m_color != this->m_text.getFillColor()) {
         this->m_text.setFillColor(casted.m_color);
     }
+
+    if (casted.m_thickness >= 0) {
+        m_text.setOutlineThickness(casted.m_thickness);
+    }
+
     this->m_position = Position(casted.m_position.getXAxis(), casted.m_position.getYAxis());
-    this->m_text.setOrigin(casted.m_origin.getXAxis(), casted.m_origin.getYAxis());
     this->m_text.setPosition(casted.m_position.getXAxis(), casted.m_position.getYAxis());
+    this->m_text.setOrigin(casted.m_origin.getXAxis(), casted.m_origin.getYAxis());
 }
 
 void zofia::Typography::draw(sf::RenderTarget &target) {

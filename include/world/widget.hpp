@@ -6,5 +6,6 @@
 #include "../../world/Rectangle.cpp"
 #include "../../world/widget/Button.cpp"
 #include "../../world/widget/MenuStack.cpp"
+#include "../../world/widget/FpsCounter.cpp"
 
 #endif

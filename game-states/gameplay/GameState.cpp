@@ -14,12 +14,16 @@ namespace zofia {
         private:
           SpaceShip m_player1;
           SpaceShip m_player2;
+          FpsCounter m_fpsCounter;
         public:
           GameState(StateManager &machine, sf::RenderWindow &window, bool replace = true)
-                  : BaseState(machine, window, replace) {
+                  : BaseState(machine, window, replace), m_fpsCounter() {
               LOG_INFO("GameState is created");
               m_player1.updateColor(sf::Color::Red);
               m_player2.updateColor(sf::Color::Green);
+
+              m_player1.updateHitBoxPos(200, 200);
+              m_player2.updateHitBoxPos(300, 300);
           }
 
           void pause() override {
@@ -45,14 +49,17 @@ namespace zofia {
               }
           }
 
-          void update() override {
-
+          void update(sf::Time deltaTime) override {
+              FpsCounterContext context;
+              m_fpsCounter.update(context);
           }
+
 
           void draw() override {
               m_window.clear(sf::Color::Black);
               m_player1.drawHitBox(m_window);
               m_player2.drawHitBox(m_window);
+              m_fpsCounter.draw(m_window);
               m_window.display();
           }
     };

@@ -37,6 +37,12 @@ namespace zofia {
 
           void update();
 
+          void update(sf::Time deltaTime);
+
+          void fixedUpdate(sf::Time deltaTime) {
+
+          }
+
           void draw();
 
           bool isRunning() const {
@@ -119,6 +125,10 @@ void ZOFIA StateManager::draw() {
 
 void ZOFIA StateManager::quit() {
     m_running = false;
+}
+
+void ZOFIA StateManager::update(sf::Time deltaTime) {
+    m_states.top()->update(deltaTime);
 }
 
 #endif

@@ -22,7 +22,7 @@ namespace zofia {
         public:
           SpaceShip() : DrawableEntity() {
               m_hitBox = HBox(DEFAULT_HIT_BOX["space_ship_hit_box"]);
-              m_speed = Speed(20, 0);
+              m_speed = Speed(110, 0);
               LOG_DEBUG("Created base space ship");
           }
 

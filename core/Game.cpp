@@ -70,13 +70,34 @@ zofia::Game::~Game() {
 }
 
 void zofia::Game::startEngine() {
-    sf::Clock clock;
-    while (m_stateMachine.isRunning()) {
-//        float fps = 1.0f / (clock.restart().asSeconds());
+    //        float fps = 1.0f / (clock.restart().asSeconds());
 //        LOG_DEBUG("FPS: {}", fps);
+
+    constexpr unsigned TPS = 60; // ticks per seconds
+    const sf::Time timePerUpdate = sf::seconds(1.0f / float(TPS));
+    unsigned ticks = 0;
+
+    sf::Clock timer;
+    auto lastTime = sf::Time::Zero;
+    auto lag = sf::Time::Zero;
+
+    while (m_stateMachine.isRunning()) {
+
+        auto time = timer.getElapsedTime();
+        auto elapsed = time - lastTime;
+        lastTime = time;
+        lag += elapsed;
+
         m_stateMachine.nextState();
         m_stateMachine.processEvents();
-        m_stateMachine.update();
+        m_stateMachine.update(elapsed);
+
+        while (lag >= timePerUpdate) {
+            ticks++;
+            lag -= timePerUpdate;
+            m_stateMachine.fixedUpdate(elapsed);
+        }
+
         m_stateMachine.draw();
     }
 }

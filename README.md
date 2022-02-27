@@ -36,3 +36,4 @@ build_type=Release
 
 7. How C++ works: https://www.youtube.com/watch?v=ksJ9bdSX5Yo
 8. Basic SFML: https://www.youtube.com/playlist?list=PLvv0ScY6vfd95GMoMe2zc4ZgGxWYj3vua
+9. Fixed time step: https://gafferongames.com/post/fix_your_timestep/

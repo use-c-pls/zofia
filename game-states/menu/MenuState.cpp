@@ -48,9 +48,9 @@ namespace zofia {
               }
           }
 
-          void update() override {
-//              LOG_DEBUG("MenuState update")
-
+          void update(sf::Time deltaTime) override {
+              auto val = std::to_string(deltaTime.asSeconds());
+//              LOG_DEBUG("MenuState update with {}", val);
           }
 
           void draw() override {

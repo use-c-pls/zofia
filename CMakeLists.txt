@@ -46,8 +46,11 @@ set(GAME_SOURCE
         core/resource/ResourceHolder.cpp
         core/resource/ResourceManager.cpp
 
-        game-states/BaseState.cpp
-        game-states/ExampleState.cpp
+	core/audio/AudioManager.cpp
+        core/audio/Music.cpp 
+        core/audio/SoundEffect.cpp game-states/BaseState.cpp
+        
+	game-states/ExampleState.cpp
         game-states/StateFactory.cpp
         game-states/StateManager.cpp
 
@@ -56,20 +59,28 @@ set(GAME_SOURCE
 
         world/util/Speed.cpp
         world/util/Margin.cpp
-        world/widget/BaseViewContext.cpp
+        world/util/Align.cpp
 
         world/Entity.cpp
         world/EntityContext.cpp
         world/IDrawable.cpp
+        world/DrawableEntity.cpp
         world/PositionEntity.cpp
         world/DrawableHolderEntity.cpp
         world/HitBoxObject.cpp
+
         world/spaceship/SpaceShip.cpp
 
         world/Rectangle.cpp
         world/Typography.cpp
+        world/widget/BaseView.cpp
+        world/widget/BaseViewContext.cpp
         world/widget/Button.cpp
-        world/widget/BaseView.cpp world/widget/MenuStack.cpp core/audio/AudioManager.cpp core/audio/Music.cpp core/audio/SoundEffect.cpp)
+        world/widget/BaseView.cpp 
+	world/widget/MenuStack.cpp 
+	 
+        world/widget/MenuStack.cpp
+        world/widget/FpsCounter.cpp)
 
 set(GAME_HEADER
         include/ZOFIA
@@ -92,7 +103,7 @@ set(GAME_HEADER
 #
 set(all_code_files
         ${GAME_HEADER}
-        ${GAME_SOURCE} world/util/Align.cpp world/DrawableEntity.cpp)
+        ${GAME_SOURCE})
 
 add_library(${APP_NAME} SHARED ${all_code_files})
 

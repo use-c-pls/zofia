@@ -8,6 +8,7 @@
 #define ZOFIA zofia::
 namespace zofia {
     class BaseState;
+
     class StateManager;
 
     class BaseState {
@@ -35,7 +36,15 @@ namespace zofia {
 
           virtual void processEvents() = 0;
 
-          virtual void update() = 0;
+          virtual void update([[maybe_unused]] sf::Time deltaTime) {
+          }
+
+          virtual void fixedUpdate([[maybe_unused]] sf::Time deltaTime) {
+          }
+
+          virtual void update() {
+
+          }
 
           virtual void draw() = 0;
 
