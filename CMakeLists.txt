@@ -69,7 +69,7 @@ set(GAME_SOURCE
         world/Rectangle.cpp
         world/Typography.cpp
         world/widget/Button.cpp
-        world/widget/BaseView.cpp world/widget/MenuStack.cpp)
+        world/widget/BaseView.cpp world/widget/MenuStack.cpp core/audio/AudioManager.cpp core/audio/Music.cpp core/audio/SoundEffect.cpp)
 
 set(GAME_HEADER
         include/ZOFIA

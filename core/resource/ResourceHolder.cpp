@@ -21,7 +21,7 @@ namespace zofia {
                   m_fonts("font", "resources/fonts", "ttf"),
                   m_backgrounds("background", "resources/backgrounds", "png"),
                   m_views("view", "resources/views", "png"),
-                  m_sounds("sound", "resources/sound", "oog") {}
+                  m_sounds("sound", "resources/sounds", "wav") {}
 
         public:
           static ResourceHolder &get() {

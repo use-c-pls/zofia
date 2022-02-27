@@ -6,7 +6,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "../include/game-states/full.hpp"
-
+#include "audio/AudioManager.cpp"
+#include "audio/Music.cpp"
+#include "audio/SoundEffect.cpp"
 #include "logging/Logger.cpp"
 #include "Size.cpp"
 
@@ -39,6 +41,28 @@ zofia::Game::Game(Config config) : m_stateMachine(config) {
     Size size(config.getWidth(), config.getHeight());
     m_window.create(createVideoMode(size), TITLE, sf::Style::Titlebar | sf::Style::Close);
     m_window.setFramerateLimit(120);
+//    AudioManager::get().addAudio("explosion",zofia::make_unique<Wave>(ResourceHolder::get().sounds().get("explosion")));
+//    AudioManager::get().getWave("explosion")->setVolume(50.f);
+//    AudioManager::get().getWave("explosion")->setLoop(true);
+//    AudioManager::get().getWave("explosion")->play();
+
+//    sf::Sound sound;
+//    sf::SoundBuffer soundBuffer;
+//    soundBuffer.loadFromFile("resources/sounds/explosion.wav");
+//    sound.setBuffer(soundBuffer);
+//    sound.setVolume(100.f);
+//    sound.setPitch(1.2f);
+//    sound.setLoop(true);
+//    sound.play();
+
+//    sf::Music music;
+//    if(!music.openFromFile("resources/sounds/background_music.ogg")){
+//        LOG_DEBUG("Could not load music");
+//    }
+//    music.setVolume(50.f);
+//    music.setLoop(true);
+//    music.play();
+
 }
 
 zofia::Game::~Game() {
