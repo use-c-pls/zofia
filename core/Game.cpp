@@ -19,7 +19,6 @@ namespace zofia {
           sf::RenderWindow m_window;
 
           void startEngine();
-
         public:
           explicit Game(Config config);
 
@@ -41,30 +40,8 @@ zofia::Game::Game(Config config) : m_stateMachine(config) {
     Size size(config.getWidth(), config.getHeight());
     m_window.create(createVideoMode(size), TITLE, sf::Style::Titlebar | sf::Style::Close);
     m_window.setFramerateLimit(120);
-//    AudioManager::get().addAudio("explosion",zofia::make_unique<Wave>(ResourceHolder::get().sounds().get("explosion")));
-//    AudioManager::get().getWave("explosion")->setVolume(50.f);
-//    AudioManager::get().getWave("explosion")->setLoop(true);
-//    AudioManager::get().getWave("explosion")->play();
-
-//    sf::Sound sound;
-//    sf::SoundBuffer soundBuffer;
-//    soundBuffer.loadFromFile("resources/sounds/explosion.wav");
-//    sound.setBuffer(soundBuffer);
-//    sound.setVolume(100.f);
-//    sound.setPitch(1.2f);
-//    sound.setLoop(true);
-//    sound.play();
-
-//    sf::Music music;
-//    if(!music.openFromFile("resources/sounds/background_music.ogg")){
-//        LOG_DEBUG("Could not load music");
-//    }
-//    music.setVolume(50.f);
-//    music.setLoop(true);
-//    music.play();
 
 }
-
 zofia::Game::~Game() {
     LOG_INFO("Cleaning up and closing Game....");
 }
@@ -73,6 +50,13 @@ void zofia::Game::startEngine() {
     //        float fps = 1.0f / (clock.restart().asSeconds());
 //        LOG_DEBUG("FPS: {}", fps);
 
+//    auto x = ResourceHolder::get().sounds().get("explosion");
+//    AudioManager::get().addAudio("explosion",zofia::make_unique<Wave>(x));
+//    auto explosion = AudioManager::get().getWave("explosion");
+//    explosion->setVolume(50.f);
+//    explosion->setLoop(true);
+//    explosion->play();
+
     constexpr unsigned TPS = 60; // ticks per seconds
     const sf::Time timePerUpdate = sf::seconds(1.0f / float(TPS));
     unsigned ticks = 0;
@@ -80,6 +64,7 @@ void zofia::Game::startEngine() {
     sf::Clock timer;
     auto lastTime = sf::Time::Zero;
     auto lag = sf::Time::Zero;
+
 
     while (m_stateMachine.isRunning()) {
 

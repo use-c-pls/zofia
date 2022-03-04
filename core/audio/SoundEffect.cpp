@@ -21,9 +21,10 @@ namespace zofia {
               this->setBuffer(m_soundBuffer);
           }
 
-          Wave(sf::SoundBuffer buffer) : sf::Sound() {
-                LOG_DEBUG("Name cc");
-                this->setBuffer(buffer);
+          Wave(sf::SoundBuffer &buffer) : sf::Sound(buffer) {
+//                LOG_DEBUG("Name cc");
+//
+//                this->setBuffer(buffer);
           }
 
           ~Wave() = default;
