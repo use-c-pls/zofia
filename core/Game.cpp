@@ -6,8 +6,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "../include/game-states/full.hpp"
-#include "audio/AudioManager.cpp"
-#include "audio/Music.cpp"
 #include "audio/SoundEffect.cpp"
 #include "logging/Logger.cpp"
 #include "Size.cpp"
