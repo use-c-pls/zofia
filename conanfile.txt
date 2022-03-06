@@ -10,6 +10,7 @@ sfml:shared=True
 
 [generators]
 cmake
+cmake_find_package
 
 [imports]
 lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my local "bin" folder

@@ -3,6 +3,9 @@ project(zofia)
 
 set(CMAKE_CXX_STANDARD 11)
 
+#set(CMAKE_FIND_DEBUG_MODE ON)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_BINARY_DIR})
+
 #Specific 32 or 64 system
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     # 64 bits
@@ -46,11 +49,11 @@ set(GAME_SOURCE
         core/resource/ResourceHolder.cpp
         core/resource/ResourceManager.cpp
 
-	core/audio/AudioManager.cpp
-        core/audio/Music.cpp 
+        core/audio/AudioManager.cpp
+        core/audio/Music.cpp
         core/audio/SoundEffect.cpp game-states/BaseState.cpp
-        
-	game-states/ExampleState.cpp
+
+        game-states/ExampleState.cpp
         game-states/StateFactory.cpp
         game-states/StateManager.cpp
 
@@ -76,9 +79,9 @@ set(GAME_SOURCE
         world/widget/BaseView.cpp
         world/widget/BaseViewContext.cpp
         world/widget/Button.cpp
-        world/widget/BaseView.cpp 
-	world/widget/MenuStack.cpp 
-	 
+        world/widget/BaseView.cpp
+        world/widget/MenuStack.cpp
+
         world/widget/MenuStack.cpp
         world/widget/FpsCounter.cpp)
 
